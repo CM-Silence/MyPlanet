@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="style_checkbox" >
+        <item name="colorControlNormal">#676767</item>
+        <item name="colorControlActivated">#FFC107</item>
+    </style>
+</resources>

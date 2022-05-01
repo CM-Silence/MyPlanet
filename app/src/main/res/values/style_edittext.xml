@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="style_edittext" >
+        <item name="android:textColor">#FFC107</item>
+        <item name="android:textSize">18sp</item>
+        <!-- 底部线 默认颜色 -->
+        <item name="colorControlNormal">#606060</item>
+        <!-- 底部线 EditText激活时颜色 -->
+        <item name="colorControlActivated">#FFC107</item>
+    </style>
+</resources>
