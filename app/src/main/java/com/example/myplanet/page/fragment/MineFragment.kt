@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.example.myplanet.R
+import com.example.myplanet.base.BaseFragment
 
 /**
  * @ClassName MineFragment
@@ -13,7 +13,7 @@ import com.example.myplanet.R
  * @date 2022/5/1
  * @Description
  */
-class MineFragment() : Fragment() {
+class MineFragment(title : String = "") : BaseFragment(title) {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

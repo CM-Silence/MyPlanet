@@ -5,16 +5,16 @@
     android:gravity="center">
 
     <com.example.myplanet.view.MyCircle
-        android:id="@+id/circle"
+        android:id="@+id/view_mycircle_circle"
         android:layout_width="330dp"
         android:layout_height="330dp" />
 
     <ImageView
-        android:id="@+id/moon"
+        android:id="@+id/view_iv_moon"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_alignStart="@+id/circle"
-        android:layout_alignTop="@+id/circle"
+        android:layout_alignStart="@+id/view_mycircle_circle"
+        android:layout_alignTop="@+id/view_mycircle_circle"
         android:layout_marginStart="138dp"
         android:layout_marginTop="1dp"
         android:src="@drawable/drawable_moon" />

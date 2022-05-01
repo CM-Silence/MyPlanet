@@ -7,33 +7,33 @@
     android:background="@drawable/background_login">
 
     <TextView
-        android:id="@+id/fragment_timer_time"
+        android:id="@+id/fragment_timer_tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:text="00:00"
         android:textColor="@color/black"
         android:textSize="60sp"
-        app:layout_constraintEnd_toEndOf="@+id/fragment_timer_sentence"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_timer_tv_sentence"
         app:layout_constraintHorizontal_bias="0.517"
-        app:layout_constraintStart_toStartOf="@+id/fragment_timer_sentence"
+        app:layout_constraintStart_toStartOf="@+id/fragment_timer_tv_sentence"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/fragment_timer_sentence"
+        android:id="@+id/fragment_timer_tv_sentence"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:text="宇宙为你闪烁"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/myTimer"
-        app:layout_constraintEnd_toEndOf="@+id/fragment_timer_planet"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_timer_myTimer"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_timer_btn_planet"
         app:layout_constraintHorizontal_bias="0.517"
-        app:layout_constraintStart_toStartOf="@+id/fragment_timer_planet" />
+        app:layout_constraintStart_toStartOf="@+id/fragment_timer_btn_planet" />
 
     <TextView
-        android:id="@+id/fragment_timer_planetname"
+        android:id="@+id/fragment_timer_tv_planetname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="100dp"
@@ -41,13 +41,13 @@
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/fragment_timer_planet"
-        app:layout_constraintStart_toStartOf="@+id/fragment_timer_planet"
-        app:layout_constraintTop_toBottomOf="@+id/myTimer"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_timer_btn_planet"
+        app:layout_constraintStart_toStartOf="@+id/fragment_timer_btn_planet"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_timer_myTimer"
         app:layout_constraintVertical_bias="0.354" />
 
     <ImageButton
-        android:id="@+id/fragment_timer_planet"
+        android:id="@+id/fragment_timer_btn_planet"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:background="#00000000"
@@ -60,7 +60,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.example.myplanet.view.MyTimer
-        android:id="@+id/myTimer"
+        android:id="@+id/fragment_timer_myTimer"
         android:layout_width="330dp"
         android:layout_height="320dp"
         app:layout_constraintBottom_toBottomOf="parent"

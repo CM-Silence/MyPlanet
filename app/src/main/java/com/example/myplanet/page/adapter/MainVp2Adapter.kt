@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.example.myplanet.base.BaseFragment
 import com.example.myplanet.page.fragment.MineFragment
 import com.example.myplanet.page.fragment.TimerFragment
 import com.example.myplanet.page.fragment.UniverseFragment
@@ -16,7 +17,7 @@ import com.example.myplanet.page.fragment.UniverseFragment
  * @Description 主活动上的ViewPage2的适配器
  */
 class MainVp2Adapter(frgManager: FragmentManager,
-                     private val frgList: MutableList<Fragment>,
+                     private val frgList: MutableList<BaseFragment>,
                      lifecycle: Lifecycle) :
     FragmentStateAdapter(frgManager, lifecycle){
 
@@ -26,7 +27,7 @@ class MainVp2Adapter(frgManager: FragmentManager,
      * @Param fragment 需要传入的Fragment
      * @date 2022/5/1 18:13
      */
-    fun addFragment(fragment : Fragment){
+    fun addFragment(fragment : BaseFragment){
         frgList.add(fragment)
     }
 

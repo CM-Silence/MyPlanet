@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
  * @ClassName BaseActivity
  * @author Silence~
  * @date 2022/4/27
- * @Description
  */
 open class BaseActivity : AppCompatActivity() {
 

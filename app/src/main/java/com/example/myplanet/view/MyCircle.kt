@@ -28,6 +28,15 @@ class MyCircle(context: Context, attributeSet: AttributeSet) : View(context, att
     }
 
     /**
+     * @Description 改变圆环颜色的方法
+     * @Param num 颜色的改变量
+     * @date 2022/5/1 21:21
+     */
+    fun changeColor(num : Int){
+        paint.color = Color.rgb(255,193,7 + num)
+    }
+
+    /**
      * @Description 画一个圆环
      * @date 2022/5/1 17:18
      */

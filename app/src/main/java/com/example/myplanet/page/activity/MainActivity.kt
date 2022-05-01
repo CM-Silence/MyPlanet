@@ -1,11 +1,30 @@
 package com.example.myplanet.page.activity
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.MotionEvent
+import android.view.View
+import android.widget.TableLayout
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleRegistry
+import androidx.viewpager2.widget.ViewPager2
 import com.example.myplanet.R
 import com.example.myplanet.base.BaseActivity
+import com.example.myplanet.base.BaseFragment
+import com.example.myplanet.base.MyApplication
 import com.example.myplanet.bean.UserBean
+import com.example.myplanet.page.adapter.MainVp2Adapter
+import com.example.myplanet.page.fragment.MineFragment
+import com.example.myplanet.page.fragment.TimerFragment
+import com.example.myplanet.page.fragment.UniverseFragment
+import com.example.myplanet.view.MyCircle
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
+import com.google.android.material.tabs.TabLayoutMediator.TabConfigurationStrategy
 
 /**
  * @ClassName MainActivity
@@ -15,6 +34,14 @@ import com.example.myplanet.bean.UserBean
  */
 class MainActivity : BaseActivity() {
     private lateinit var mUserBean: UserBean
+    private val frgList = ArrayList<BaseFragment>()
+
+    private lateinit var mVp2Page : ViewPager2
+    private lateinit var mTlPage : TabLayout
+
+    private var pressTime = 0L //按压计时器的时间,用于检测计时器的长按事件
+    private var px = 0f
+    private var py = 0f
 
     companion object{
         /**
@@ -33,5 +60,32 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mUserBean = intent.getSerializableExtra("param1") as UserBean
+        initView()
+        initFragmentList()
+        initViewPager2()
     }
+
+    private fun initView(){
+        mVp2Page = findViewById(R.id.activity_main_vp2)
+        mTlPage = findViewById(R.id.activity_main_tl)
+    }
+
+    private fun initFragmentList(){
+        frgList.run{
+            add(TimerFragment("计时器"))
+            add(UniverseFragment("universe"))
+            add(MineFragment("我的"))
+        }
+    }
+
+    private fun initViewPager2(){
+        val mainVp2Adapter = MainVp2Adapter(this.supportFragmentManager,frgList,LifecycleRegistry(this))
+        mVp2Page.adapter = mainVp2Adapter
+
+        TabLayoutMediator(mTlPage, mVp2Page
+        ) { tab, position -> //在这里给Tab设置Text
+            tab.text = frgList[position].getTitle()
+        }.attach()
+    }
+
 }

@@ -12,11 +12,12 @@
         <entry key="..\:/project/Android/MyPlanet/app/src/main/res/layout/activity_main.xml" value="0.21666666666666667" />
         <entry key="..\:/project/Android/MyPlanet/app/src/main/res/layout/activity_start.xml" value="0.21666666666666667" />
         <entry key="..\:/project/Android/MyPlanet/app/src/main/res/layout/dialog_register.xml" value="0.2115036231884058" />
+        <entry key="..\:/project/Android/MyPlanet/app/src/main/res/layout/dialog_timer.xml" value="0.21666666666666667" />
         <entry key="..\:/project/Android/MyPlanet/app/src/main/res/layout/fragment_me.xml" value="0.21666666666666667" />
         <entry key="..\:/project/Android/MyPlanet/app/src/main/res/layout/fragment_timer.xml" value="0.22" />
         <entry key="..\:/project/Android/MyPlanet/app/src/main/res/layout/fragment_universe.xml" value="0.21666666666666667" />
         <entry key="..\:/project/Android/MyPlanet/app/src/main/res/layout/view_myprocessbar.xml" value="0.4466666666666667" />
-        <entry key="..\:/project/Android/MyPlanet/app/src/main/res/layout/view_mytimer.xml" value="0.34523809523809523" />
+        <entry key="..\:/project/Android/MyPlanet/app/src/main/res/layout/view_mytimer.xml" value="0.1" />
       </map>
     </option>
   </component>
