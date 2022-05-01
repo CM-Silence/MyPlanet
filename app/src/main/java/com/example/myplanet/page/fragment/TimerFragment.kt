@@ -15,6 +15,10 @@ import android.widget.Toast
 import com.example.myplanet.R
 import com.example.myplanet.base.BaseFragment
 import com.example.myplanet.base.MyApplication
+import com.example.myplanet.bean.UserBean
+import com.example.myplanet.model.LoginModel
+import com.example.myplanet.page.dialog.RegisterDialog
+import com.example.myplanet.page.dialog.TimerDialog
 import com.example.myplanet.view.MyCircle
 import com.example.myplanet.view.MyTimer
 
@@ -66,11 +70,29 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
 
         mMyCircle.setOnLongClickListener {
             Toast.makeText(MyApplication.getAppContext(), "timer", Toast.LENGTH_SHORT).show()
-
+            TimerDialog(this.requireContext() , object : TimerDialog.OnCloseListener{
+                @SuppressLint("SetTextI18n")
+                override fun onClose(minute : Int, second : Int) {
+                    mTvTime.text = "${minute.toTimeString()}:${second.toTimeString()}"
+                }
+            }).show()
             return@setOnLongClickListener true
         }
 
 
+    }
+
+    /**
+     * @Description 如果数字大于10则返回原数字,如果小于10则在数字前加"0"再返回
+     * @return 一个字符串
+     * @author Silence~
+     * @date 2022/5/2 0:05
+     */
+    fun Int.toTimeString() : String{
+        if(this < 10){
+            return "0${this}"
+        }
+        return this.toString()
     }
 
     /**

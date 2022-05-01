@@ -1,9 +1,14 @@
 package com.example.myplanet.page.dialog
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.Window
+import android.widget.Button
+import android.widget.SeekBar
+import android.widget.SeekBar.OnSeekBarChangeListener
+import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.core.widget.addTextChangedListener
 import com.example.myplanet.R
@@ -17,18 +22,15 @@ import com.google.android.material.textfield.TextInputEditText
  * @date 2022/5/1
  * @Description 计时器的窗口,用于调整倒计时的时间
  */
-class TimerDialog(@NonNull context: Context, username: String, password: String, listener: OnCloseListener) : Dialog(context) {
+class TimerDialog(@NonNull context: Context,private val listener: OnCloseListener) : Dialog(context) {
+    private lateinit var mSbTime : SeekBar
+    private lateinit var mTvTime : TextView
+    private lateinit var mBtnCountDown : Button
+    private lateinit var mBtnCancel : Button
 
-    private lateinit var mEtUsername: TextInputEditText
-    private lateinit var mEtPassword1: TextInputEditText
-    private lateinit var mEtPassword2: TextInputEditText
-    private lateinit var mBtnRegister: MaterialButton
-    private val mOnCloseListener: OnCloseListener = listener
-    private var mUserBean: UserBean
+    private var second = 0
+    private var minute = 0
 
-    init {
-        mUserBean = UserBean(username, password)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +39,7 @@ class TimerDialog(@NonNull context: Context, username: String, password: String,
         window!!.setBackgroundDrawableResource(android.R.color.transparent)
         requestWindowFeature(Window.FEATURE_NO_TITLE) // 加上这句后就可以在 xml 中自定义高和宽
 
-        setContentView(R.layout.dialog_register)
+        setContentView(R.layout.dialog_timer)
 
         setCanceledOnTouchOutside(false) // 设置窗口边界外触摸时不关闭 dialog
 
@@ -47,83 +49,64 @@ class TimerDialog(@NonNull context: Context, username: String, password: String,
     }
 
     private fun initView() {
-        mEtUsername = findViewById(R.id.dialog_et_register_username)
-        mEtPassword1 = findViewById(R.id.dialog_et_register_password1)
-        mEtPassword2 = findViewById(R.id.dialog_et_register_password2)
-        mBtnRegister = findViewById(R.id.dialog_btn_register_register)
-
-        mEtUsername.setText(mUserBean.getUsername())
-        mEtPassword1.setText(mUserBean.getPassword())
+        mSbTime = findViewById(R.id.dialog_sb_timer_time)
+        mTvTime = findViewById(R.id.dialog_tv_timer_time)
+        mBtnCountDown = findViewById(R.id.dialog_btn_timer_countdown)
+        mBtnCancel = findViewById(R.id.dialog_btn_timer_cancel)
     }
 
     private fun initClick() {
-        mBtnRegister.setOnClickListener {
-            register()
+        mBtnCancel.setOnClickListener {
+            dismiss()
+        }
+        mBtnCountDown.setOnClickListener {
+            countDown()
         }
     }
 
     /**
-     * @Description 初始化事件,主要是用户输入错误时的提醒
-     * @date 2022/4/30 21:26
+     * @Description 主要是处理SeekBar的事件
+     * @date 2022/5/1 23:54
      */
     private fun initEvent() {
-        mEtUsername.addTextChangedListener {
-            if (mEtUsername.text.toString().length < 8 ||
-                mEtUsername.text.toString().length > 12
-            ) {
-                mEtUsername.error = "用户名长度为8-12"
-            } else {
-                mEtUsername.error = null
+        mSbTime.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+
+            @SuppressLint("SetTextI18n")
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, b: Boolean) {
+                second = progress * 72
+                minute = 0
+                while(second >= 60){
+                    minute++
+                    second -= 60
+                }
+                mTvTime.text = "${minute.toTimeString()}:${second.toTimeString()}"
             }
-        }
-        mEtPassword1.addTextChangedListener {
-            if (mEtPassword1.text.toString().length < 6 ||
-                mEtPassword1.text.toString().length > 16
-            ) {
-                mEtPassword1.error = "密码长度为6-16"
-            } else if (!it.toString().matches(".*[a-zA-Z]+.*".toRegex())) {
-                mEtPassword1.error = "密码必须包含字母"
-            } else {
-                mEtPassword1.error = null
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+
             }
-        }
-        mEtPassword2.addTextChangedListener {
-            if (mEtPassword2.text.toString() != mEtPassword1.text.toString()) {
-                mEtPassword2.error = "两次输入的密码不一致"
-            } else {
-                mEtPassword2.error = null
-            }
-        }
+            override fun onStopTrackingTouch(seekBar: SeekBar) {}
+        })
     }
 
-    private fun register() {
-        val username = mEtUsername.text.toString()
-        val password1 = mEtPassword1.text.toString()
-        val password2 = mEtPassword2.text.toString()
-        var isOk = true
-        if (username.isEmpty() || mEtUsername.error != null) {
-            isOk = false
-            mEtUsername.error = "用户名不能为空!"
-        }
-        if (isOk && (password1.length < 6 ||
-                    password1.length > 16 ||
-                    mEtPassword1.error != null)
-        ) {
-            isOk = false
-            mEtPassword1.error = "密码格式错误!"
-        }
-        if (isOk && (password2 != password1 || mEtPassword2.error != null)) {
-            isOk = false
-            mEtPassword2.error = "两次输入的密码不一致!"
-        }
-        if (isOk) {
-            mUserBean = UserBean(username, password1)
-            mOnCloseListener.onClose(mUserBean)
-            dismiss()
-        }
+    private fun countDown() {
+        listener.onClose(minute,second)
+        dismiss()
     }
 
     interface OnCloseListener {
-        fun onClose(bean: UserBean)
+        fun onClose(minute : Int, second : Int)
+    }
+
+    /**
+     * @Description 如果数字大于10则返回原数字,如果小于10则在数字前加"0"再返回
+     * @return 一个字符串
+     * @author Silence~
+     * @date 2022/5/2 0:05
+     */
+    fun Int.toTimeString() : String{
+        if(this < 10){
+            return "0${this}"
+        }
+        return this.toString()
     }
 }
