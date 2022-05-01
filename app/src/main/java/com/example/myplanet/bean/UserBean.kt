@@ -1,6 +1,7 @@
 package com.example.myplanet.bean
 
 import com.example.myplanet.utils.AESCryptUtil
+import java.io.Serializable
 
 
 /**
@@ -15,11 +16,9 @@ data class UserBean(private val username : String, //账号
                     private var isAutoLogin : Boolean = false, //是否自动登录
                     private var name : String = "",  //昵称
                     private var signature: String = "",  //个性签名
-                    private var headPortraitAddress : String = ""){ //头像地址
+                    private var headPortraitAddress : String = ""  //头像地址
+                    ) : Serializable{
 
-    init {
-        //this.password = AESCryptUtil.encrypt(this.password, AES_KEY).toString()
-    }
 
     companion object {
 
@@ -47,6 +46,7 @@ data class UserBean(private val username : String, //账号
             )
         }
     }
+
 
     /**
      * @Description 将一个UserBean类对象转换为字符串的方法

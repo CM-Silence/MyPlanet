@@ -95,7 +95,8 @@ class LoginActivity : BaseActivity() {
                 LoginModel.setRememberUser(null) //清空储存的账号密码
             }
             LoginModel.addUserBean(userBean) //储存账号密码
-            MainActivity.startActivity(this)
+            userBean.setPassword("") //清除密码后传入MainActivity中
+            MainActivity.startActivity(this,userBean)
         }
         else{
             Toast.makeText(MyApplication.getAppContext(), "账号或密码错误!", Toast.LENGTH_SHORT).show()
@@ -130,9 +131,10 @@ class LoginActivity : BaseActivity() {
             mEtPassword.setText(userBean.getPassword())
             mCbRemember.isChecked = userBean.isRemember()
             mCbAutoLogin.isChecked = userBean.isAutoLogin()
-        }
-        if(mCbAutoLogin.isChecked){ //如果用户勾选了记住密码则直接登录
-            MainActivity.startActivity(this)
+            if(mCbAutoLogin.isChecked){ //如果用户勾选了记住密码则直接登录
+                userBean.setPassword("") //清除密码后传入MainActivity
+                MainActivity.startActivity(this,userBean)
+            }
         }
     }
 }
