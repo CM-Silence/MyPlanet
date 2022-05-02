@@ -99,6 +99,7 @@ class LoginActivity : BaseActivity() {
             LoginModel.addUserBean(userBean) //储存账号密码
             userBean.setPassword("") //清除密码后传入MainActivity中
             MainActivity.startActivity(this,userBean)
+            finish()
         }
         else{
             ToastUtil.show("账号或密码错误!")
@@ -137,6 +138,7 @@ class LoginActivity : BaseActivity() {
             if(mCbAutoLogin.isChecked && !intent.getBooleanExtra("param",false)){
                 userBean.setPassword("") //清除密码后传入MainActivity
                 MainActivity.startActivity(this,userBean)
+                finish()
             }
         }
     }
