@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyPlanet">
         <service
-            android:name=".service.NotificationService"
+            android:name=".service.TimerService"
             android:enabled="true"
             android:exported="true" />
 

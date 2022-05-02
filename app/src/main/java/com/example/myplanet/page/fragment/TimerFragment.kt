@@ -12,20 +12,18 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import com.example.myplanet.R
 import com.example.myplanet.base.BaseFragment
-import com.example.myplanet.base.MyApplication
 import com.example.myplanet.bean.PlanetBean
 import com.example.myplanet.bean.UserBean
 import com.example.myplanet.model.LoginModel
 import com.example.myplanet.page.activity.MainActivity
 import com.example.myplanet.page.dialog.ChoosePlanetDialogFragment
 import com.example.myplanet.page.dialog.TimerDialog
-import com.example.myplanet.service.NotificationService
+import com.example.myplanet.service.TimerService
+import com.example.myplanet.utils.TimeUtil
 import com.example.myplanet.view.MyCircle
 import com.example.myplanet.view.MyTimer
-import java.lang.Thread.sleep
 
 /**
  * @ClassName TimerFragment
@@ -41,16 +39,38 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
     private lateinit var mMyCircle: MyCircle
     private lateinit var mIvMoon: ImageView
 
-    private lateinit var timeChangeThread : Thread
-
     private lateinit var userBean: UserBean
 
-    private lateinit var timeBinder: NotificationService.TimerBinder
+    private lateinit var timeBinder: TimerService.TimerBinder
 
+    private lateinit var timerService : TimerService
+
+
+    /**
+     * @Description TimerService通过接口回调的方式来实现计时器的功能
+     * @author Silence~
+     * @date 2022/5/3 0:43
+     */
     private val connection = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName, service: IBinder) {
-            timeBinder = service as NotificationService.TimerBinder
-            timeBinder.timeChange(toTime(minute, second))
+            timeBinder = service as TimerService.TimerBinder
+            timeBinder.getTimeFromActivity(minute,second)
+            timerService = timeBinder.getService()
+            timerService.setOnTimeChangeListener(object : TimerService.OnTimeChangeListener {
+                override fun onTimeChange(minute: Int, second: Int) {
+                    this@TimerFragment.minute = minute
+                    this@TimerFragment.second = second
+                    userBean.getPlanetList()[0].addTime(1) //星球专注时间+1
+                    //用handler发消息把UI操作交给主线程
+                    val msg = Message.obtain()
+                    msg.what = 1
+                    mHandler.sendMessage(msg)
+                }
+
+                override fun onOver() {
+                    this@TimerFragment.isCountDown = false
+                }
+            })
         }
 
         override fun onServiceDisconnected(p0: ComponentName?) {}
@@ -85,6 +105,9 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
         initData()
         initView(view)
         initEvent()
+
+        val intent = Intent(this.context, TimerService::class.java)
+        this.activity?.bindService(intent, connection, Context.BIND_AUTO_CREATE)
     }
 
     private fun initView(view: View) {
@@ -96,6 +119,7 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
         mIvMoon = view.findViewById(R.id.view_iv_moon)
         mBtnPlanet.bringToFront()
 
+        mTvName.text = userBean.getPlanetList()[0].getName()
         mBtnPlanet.setImageResource(userBean.getPlanetList()[0].getImageID())
     }
 
@@ -139,7 +163,7 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
      */
     @SuppressLint("SetTextI18n")
     private fun timeChange(){
-        mTvTime.text = toTime(minute,second)
+        mTvTime.text = TimeUtil.toTime(minute,second)
         mMyTimer.setProcess(minute,second)
     }
 
@@ -150,43 +174,7 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
      */
     private fun countDown(){
         mMyTimer.startCountDown(minute,second)
-        if(!isCountDown) {
-            val intent = Intent(this.context, NotificationService::class.java)
-            this.activity?.bindService(intent, connection, Context.BIND_AUTO_CREATE)
-            timeChangeThread = Thread {
-                while (second != 0 || minute != 0) {
-                    sleep(1000L) //等待一秒
-
-                    //时间运算
-                    if (second != 0) {
-                        second--
-                    } else if (second == 0 && minute != 0) {
-                        minute--
-                        second += 59
-                    }
-
-                    userBean.getPlanetList()[0].addTime(1) //星球专注时间+1
-                    this.activity?.bindService(intent, connection, Context.BIND_AUTO_CREATE)
-
-                    //用handler发消息把UI操作交给主线程
-                    val msg = Message.obtain()
-                    msg.what = 1
-                    mHandler.sendMessage(msg)
-
-                }
-                isCountDown = false
-                NotificationService.stopService(this.requireContext()) //停止服务
-                this.activity?.unbindService(connection) //解绑
-            }
-            timeChangeThread.start()
-        }
-        else{ //如果已经在倒计时则停止原来的计时并重新开始
-            Thread{
-                timeChangeThread.interrupt()
-                sleep(1000)
-                timeChangeThread.start()
-            }
-        }
+        timerService.startCountDown(minute,second)
         isCountDown = true
     }
 
@@ -197,29 +185,6 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
     override fun onStop() {
         super.onStop()
         LoginModel.addNonPasswordUserBean(userBean)
-    }
-
-    /**
-     * @Description 如果数字大于10则返回原数字,如果小于10则在数字前加"0"再返回
-     * @return 一个字符串
-     * @author Silence~
-     * @date 2022/5/2 0:05
-     */
-    private fun Int.toTimeString() : String{
-        if(this < 10){
-            return "0${this}"
-        }
-        return this.toString()
-    }
-
-    /**
-     * @return 时间,格式为mm:ss
-     * @Param minute 分
-     * @param second 秒
-     * @date 2022/5/2 23:19
-     */
-    private fun toTime(minute : Int, second : Int) : String{
-        return "${minute.toTimeString()}:${second.toTimeString()}"
     }
 
     /*
