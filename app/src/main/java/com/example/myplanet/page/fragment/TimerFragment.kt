@@ -17,6 +17,7 @@ import com.example.myplanet.base.BaseFragment
 import com.example.myplanet.base.MyApplication
 import com.example.myplanet.bean.UserBean
 import com.example.myplanet.model.LoginModel
+import com.example.myplanet.page.dialog.ChoosePlanetDialogFragment
 import com.example.myplanet.page.dialog.RegisterDialog
 import com.example.myplanet.page.dialog.TimerDialog
 import com.example.myplanet.view.MyCircle
@@ -84,6 +85,7 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
         mBtnPlanet.setOnClickListener {
             if(!isCountDown) {
                 Toast.makeText(MyApplication.getAppContext(), "planet", Toast.LENGTH_SHORT).show()
+                ChoosePlanetDialogFragment(this.requireActivity()).show()
             }
         }
 
