@@ -20,6 +20,8 @@ import com.example.myplanet.bean.PlanetBean
 class ChoosePlanetRvAdapter(private val planetList : List<PlanetBean>,private val listener : OnClickItemListener)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
+    private val holderList = ArrayList<ViewHolder>()
+
     companion object {
         //尾部按钮布局
         private const val DEFAULT_ADD_VIEW = 1
@@ -31,9 +33,13 @@ class ChoosePlanetRvAdapter(private val planetList : List<PlanetBean>,private va
         lateinit var mPlanetBean : PlanetBean
         val mIvPlanet : ImageView = view.findViewById(R.id.view_iv_myplanetshow_image)
         val mTvName : TextView = view.findViewById(R.id.view_tv_myplanetshow_name)
+        var isChoose = false
 
         init {
+            holderList.add(this)
             mIvPlanet.setOnClickListener {
+                setPlanetChoose(this)
+                mIvPlanet.setBackgroundResource(R.drawable.general_background_full)
                 listener.onClickItem(mPlanetBean)
             }
         }
@@ -66,6 +72,12 @@ class ChoosePlanetRvAdapter(private val planetList : List<PlanetBean>,private va
             val planet = planetList[position]
             holder.mPlanetBean = planet
             holder.mIvPlanet.setImageResource(planet.getImageID())
+            if(holder.isChoose){
+                holder.mIvPlanet.setBackgroundResource(R.drawable.general_background_full)
+            }
+            else{
+                holder.mIvPlanet.setBackgroundResource(R.drawable.general_background)
+            }
             holder.mTvName.text = planet.getName()
         } else if (holder is ButtonViewHolder) {
             holder.mBtnAdd
@@ -78,6 +90,18 @@ class ChoosePlanetRvAdapter(private val planetList : List<PlanetBean>,private va
 
     override fun getItemViewType(position: Int): Int {
         return if (position == planetList.size) DEFAULT_ADD_VIEW else ALBUM_DATA_VIEW
+    }
+
+    private fun setPlanetChoose(h: ViewHolder){
+        for(holder in holderList){
+            holder.isChoose = h == holder
+            if(holder.isChoose){
+                holder.mIvPlanet.setBackgroundResource(R.drawable.general_background_full)
+            }
+            else{
+                holder.mIvPlanet.setBackgroundResource(R.drawable.general_background)
+            }
+        }
     }
 
     interface OnClickItemListener {

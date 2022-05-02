@@ -13,6 +13,12 @@ data class PlanetBean(private var name : String,
                       private var time: Int,
                       private var imageID : Int): Serializable {
 
+    private var isChoose = false
+    fun isChoose() = isChoose
+    fun setChoose(isChoose : Boolean){
+        this.isChoose = isChoose
+    }
+
     fun getName() = name
     fun getPreviewTime() = previewTime
     fun getTime() = time
