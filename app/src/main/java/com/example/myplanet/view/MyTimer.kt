@@ -46,17 +46,11 @@ class MyTimer(context: Context, attributeSet: AttributeSet) : RelativeLayout(con
     @SuppressLint("SetTextI18n")
     fun setProcess(minute : Int, second : Int){
         process = (second + 60 * minute) / 7200f
-        if(process != 0f) {
-            changeSecond++
-            if (changeSecond >= 20) {
-                ObjectAnimator.ofFloat(this, "rotation", this.rotation, this.rotation - 1f)
-                    .setDuration(19000).start()
-                changeSecond = 0
-            }
-        }
-        else{
-            ObjectAnimator.ofFloat(this, "rotation", this.rotation, 0f)
-                .setDuration(1000).start()
+        changeSecond++
+        if (changeSecond >= 20) {
+            ObjectAnimator.ofFloat(this, "rotation", this.rotation, this.rotation - 1f)
+                .setDuration(19000).start()
+            changeSecond = 0
         }
     }
 

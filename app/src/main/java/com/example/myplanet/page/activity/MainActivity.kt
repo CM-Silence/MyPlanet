@@ -1,8 +1,12 @@
 package com.example.myplanet.page.activity
 
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.ServiceConnection
+import android.os.Binder
 import android.os.Bundle
+import android.os.IBinder
 import androidx.lifecycle.LifecycleRegistry
 import androidx.viewpager2.widget.ViewPager2
 import com.example.myplanet.R
@@ -16,6 +20,7 @@ import com.example.myplanet.page.dialog.CompleteInformationDialog
 import com.example.myplanet.page.fragment.MineFragment
 import com.example.myplanet.page.fragment.TimerFragment
 import com.example.myplanet.page.fragment.UniverseFragment
+import com.example.myplanet.service.NotificationService
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
