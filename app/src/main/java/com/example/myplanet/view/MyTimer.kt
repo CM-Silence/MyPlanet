@@ -55,7 +55,7 @@ class MyTimer(context: Context, attributeSet: AttributeSet) : RelativeLayout(con
         changeSecond++
         if(changeSecond >= 20) {
             ObjectAnimator.ofFloat(this, "rotation", this.rotation, this.rotation - 1f)
-                .setDuration(1000).start()
+                .setDuration(19000).start()
             changeSecond = 0
         }
     }

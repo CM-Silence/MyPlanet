@@ -38,6 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="100dp"
         android:text="my planet"
+        android:background="@drawable/general_background_full"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"

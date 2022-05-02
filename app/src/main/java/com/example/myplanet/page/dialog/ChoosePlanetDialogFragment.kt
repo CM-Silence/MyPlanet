@@ -13,8 +13,11 @@ import android.view.*
 import android.widget.Button
 import android.widget.TextView
 import androidx.annotation.Nullable
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myplanet.R
+import com.example.myplanet.bean.PlanetBean
+import com.example.myplanet.page.adapter.ChoosePlanetRvAdapter
 
 
 /**
@@ -30,6 +33,8 @@ open class ChoosePlanetDialogFragment(private var mActivity: FragmentActivity, p
     private lateinit var mTvPreview : TextView
     private lateinit var mTvTime : TextView
     private lateinit var mBtnChange : Button
+
+    private val planetList = ArrayList<PlanetBean>()
 
     fun setActivity(mActivity: FragmentActivity) {
         this.mActivity = mActivity
@@ -92,6 +97,7 @@ open class ChoosePlanetDialogFragment(private var mActivity: FragmentActivity, p
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView(view)
+        initRv()
     }
 
     private fun initView(view: View){
@@ -100,6 +106,21 @@ open class ChoosePlanetDialogFragment(private var mActivity: FragmentActivity, p
         mTvPreview = view.findViewById(R.id.dialog_tv_changeplanet_previewtime)
         mTvTime = view.findViewById(R.id.dialog_tv_changeplanet_time)
         mBtnChange = view.findViewById(R.id.dialog_btn_changeplanet_change)
+    }
+
+    private fun initRv(){
+        planetList.add(PlanetBean("earth",0,0,R.drawable.drawable_earth))
+        planetList.add(PlanetBean("mars",0,0,R.drawable.drawable_mars))
+        planetList.add(PlanetBean("neptune",0,0,R.drawable.drawable_neptune))
+        planetList.add(PlanetBean("saturn",0,0,R.drawable.drawable_saturn))
+        planetList.add(PlanetBean("uranus",0,0,R.drawable.drawable_uranus))
+        planetList.add(PlanetBean("venus",0,0,R.drawable.drawable_venus))
+
+        val layoutManager = LinearLayoutManager(this.requireContext())
+        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+        mRvPlanet.layoutManager = layoutManager
+        val adapter = ChoosePlanetRvAdapter(planetList)
+        mRvPlanet.adapter = adapter
     }
 
     interface OnCloseListener {
