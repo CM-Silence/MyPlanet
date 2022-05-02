@@ -10,7 +10,10 @@ import androidx.fragment.app.FragmentManager
 import android.os.Bundle
 
 import android.view.*
+import android.widget.Button
+import android.widget.TextView
 import androidx.annotation.Nullable
+import androidx.recyclerview.widget.RecyclerView
 import com.example.myplanet.R
 
 
@@ -20,7 +23,13 @@ import com.example.myplanet.R
  * @date 2022/5/2
  * @Description 切换星球的下方弹窗
  */
-open class ChoosePlanetDialogFragment(private var mActivity: FragmentActivity) : DialogFragment(){
+open class ChoosePlanetDialogFragment(private var mActivity: FragmentActivity, private val listener: OnCloseListener) : DialogFragment(){
+
+    private lateinit var mRvPlanet : RecyclerView
+    private lateinit var mTvName : TextView
+    private lateinit var mTvPreview : TextView
+    private lateinit var mTvTime : TextView
+    private lateinit var mBtnChange : Button
 
     fun setActivity(mActivity: FragmentActivity) {
         this.mActivity = mActivity
@@ -80,5 +89,21 @@ open class ChoosePlanetDialogFragment(private var mActivity: FragmentActivity) :
         return dialog
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView(view)
+    }
+
+    private fun initView(view: View){
+        mRvPlanet = view.findViewById(R.id.dialog_rv_changeplanet_planet)
+        mTvName = view.findViewById(R.id.dialog_tv_changeplanet_name)
+        mTvPreview = view.findViewById(R.id.dialog_tv_changeplanet_previewtime)
+        mTvTime = view.findViewById(R.id.dialog_tv_changeplanet_time)
+        mBtnChange = view.findViewById(R.id.dialog_btn_changeplanet_change)
+    }
+
+    interface OnCloseListener {
+        fun onClose()
+    }
 
 }

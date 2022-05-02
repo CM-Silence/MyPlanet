@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/dialog_rv__changeplanet_planet"
+        android:id="@+id/dialog_rv_changeplanet_planet"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginTop="12dp"
@@ -77,7 +77,7 @@
             app:layout_constraintTop_toBottomOf="@+id/dialog_tv_changeplanet_previewtime" />
 
         <Button
-            android:id="@+id/dialog_tv_changeplanet_change"
+            android:id="@+id/dialog_btn_changeplanet_change"
             style="@style/style_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
