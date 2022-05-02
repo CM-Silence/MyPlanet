@@ -13,10 +13,12 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.Nullable
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myplanet.R
+import com.example.myplanet.base.MyApplication
 import com.example.myplanet.bean.PlanetBean
 import com.example.myplanet.page.adapter.ChoosePlanetRvAdapter
 
@@ -36,6 +38,8 @@ open class ChoosePlanetDialogFragment(private var mActivity: FragmentActivity, p
     private lateinit var mBtnChange : Button
 
     private val planetList = ArrayList<PlanetBean>()
+
+    private var mPlanetBean : PlanetBean? = null
 
     fun setActivity(mActivity: FragmentActivity) {
         this.mActivity = mActivity
@@ -99,6 +103,7 @@ open class ChoosePlanetDialogFragment(private var mActivity: FragmentActivity, p
         super.onViewCreated(view, savedInstanceState)
         initView(view)
         initRv()
+        initClick()
     }
 
     private fun initView(view: View){
@@ -126,13 +131,27 @@ open class ChoosePlanetDialogFragment(private var mActivity: FragmentActivity, p
                 mTvName.text = "名称:${planet.getName()}"
                 mTvPreview.text = "预计点亮时长:${planet.getPreviewTime()}"
                 mTvTime.text = "已专注:${planet.getTime()}min"
+                mPlanetBean = planet
             }
         })
         mRvPlanet.adapter = adapter
     }
 
+    private fun initClick(){
+        mBtnChange.setOnClickListener {
+            if(mPlanetBean != null){
+                Toast.makeText(MyApplication.getAppContext(), "选择成功!", Toast.LENGTH_SHORT).show()
+                listener.onClose(mPlanetBean!!)
+                dismiss()
+            }
+            else{
+                Toast.makeText(MyApplication.getAppContext(), "还没有选择星球哦!", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     interface OnCloseListener {
-        fun onClose()
+        fun onClose(planet : PlanetBean)
     }
 
 }

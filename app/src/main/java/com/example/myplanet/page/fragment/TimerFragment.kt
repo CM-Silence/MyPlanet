@@ -15,6 +15,7 @@ import android.widget.Toast
 import com.example.myplanet.R
 import com.example.myplanet.base.BaseFragment
 import com.example.myplanet.base.MyApplication
+import com.example.myplanet.bean.PlanetBean
 import com.example.myplanet.page.dialog.ChoosePlanetDialogFragment
 import com.example.myplanet.page.dialog.TimerDialog
 import com.example.myplanet.view.MyCircle
@@ -29,6 +30,7 @@ import java.lang.Thread.sleep
  */
 class TimerFragment(title : String = "") : BaseFragment(title) {
     private lateinit var mTvTime: TextView
+    private lateinit var mTvName: TextView
     private lateinit var mBtnPlanet: ImageButton
     private lateinit var mMyTimer: MyTimer
     private lateinit var mMyCircle: MyCircle
@@ -68,6 +70,7 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
 
     private fun initView(view: View) {
         mTvTime = view.findViewById(R.id.fragment_timer_tv_time)
+        mTvName = view.findViewById(R.id.fragment_timer_tv_planetname)
         mBtnPlanet = view.findViewById(R.id.fragment_timer_btn_planet)
         mMyTimer = view.findViewById(R.id.fragment_timer_myTimer)
         mMyCircle = view.findViewById(R.id.view_mycircle_circle)
@@ -81,8 +84,9 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
             if(!isCountDown) {
                 Toast.makeText(MyApplication.getAppContext(), "planet", Toast.LENGTH_SHORT).show()
                 ChoosePlanetDialogFragment(this.requireActivity(),object  : ChoosePlanetDialogFragment.OnCloseListener{
-                    override fun onClose() {
-
+                    override fun onClose(planet : PlanetBean) {
+                        mBtnPlanet.setImageResource(planet.getImageID())
+                        mTvName.text = planet.getName()
                     }
                 }).show()
             }
