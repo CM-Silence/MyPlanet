@@ -61,6 +61,7 @@ class CompleteInformationDialog(@NonNull context: Context, private val name: Str
             }
             if (isOk){
                 listener.onClose(name, signature)
+                dismiss()
             }
         }
 

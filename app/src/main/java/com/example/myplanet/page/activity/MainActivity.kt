@@ -9,7 +9,9 @@ import com.example.myplanet.R
 import com.example.myplanet.base.BaseActivity
 import com.example.myplanet.base.BaseFragment
 import com.example.myplanet.bean.UserBean
+import com.example.myplanet.model.LoginModel
 import com.example.myplanet.page.adapter.MainVp2Adapter
+import com.example.myplanet.page.dialog.CompleteInformationDialog
 import com.example.myplanet.page.fragment.MineFragment
 import com.example.myplanet.page.fragment.TimerFragment
 import com.example.myplanet.page.fragment.UniverseFragment
@@ -55,6 +57,7 @@ class MainActivity : BaseActivity() {
         initView()
         initFragmentList()
         initViewPager2()
+        isNew()
     }
 
     private fun initView(){
@@ -78,6 +81,27 @@ class MainActivity : BaseActivity() {
         ) { tab, position -> //在这里给Tab设置Text
             tab.text = frgList[position].getTitle()
         }.attach()
+    }
+
+    /**
+     * @Description 判断是否是新用户,如果是的话则弹出完善用户信息的窗口
+     * @date 2022/5/2 20:06
+     */
+    private fun isNew(){
+        if(mUserBean.isNew()){
+            CompleteInformationDialog(this,mUserBean.getName(),mUserBean.getSignature(),
+                object : CompleteInformationDialog.OnCloseListener{
+                    override fun onClose(name: String, signature: String) {
+                        mUserBean.setName(name)
+                        mUserBean.setSignature(signature)
+                        mUserBean.setNew(false)
+                        LoginModel.addNonPasswordUserBean(mUserBean)
+                        if(mUserBean.isRemember()){
+                            LoginModel.setNonPasswordRememberUser(mUserBean)
+                        }
+                    }
+                }).show()
+        }
     }
 
 }

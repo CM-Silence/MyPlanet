@@ -30,6 +30,15 @@ object LoginModel {
     }
 
     /**
+     * @return UserBean
+     * @date 2022/5/2 20:35
+     */
+    fun getUserBean(username: String) : UserBean?{
+        val sp = getSp()
+        return UserBean.getUserBeanFromString(AESCryptUtil.decrypt(sp?.getString(username,null), AES_KEY) )
+    }
+
+    /**
      * @Description 通过sharedPreferences设置记住的UserBean并将其加密
      * @Param bean 要储存的UserBean,传入null则删除之前保存的密码账号
      * @date 2022/4/27 12:43
@@ -40,11 +49,21 @@ object LoginModel {
         val edit = sp?.edit()
         if(bean != null){
             edit?.putString(SP_REMEMBER_NAME,AESCryptUtil.encrypt(bean.getUserBeanString(), AES_KEY)) //储存记住的账号密码
-            edit?.putString(bean.getUsername(),AESCryptUtil.encrypt(bean.getPassword(), AES_KEY)) //储存账号密码
+            edit?.putString(bean.getUsername(),AESCryptUtil.encrypt(bean.getUserBeanString(), AES_KEY)) //储存账号密码
         }
         else{
             edit?.remove(SP_REMEMBER_NAME)
         }
+        edit?.apply()
+    }
+
+    fun setNonPasswordRememberUser(bean : UserBean){
+        val sp = getSp()
+        val edit = sp?.edit()
+        val password = UserBean.getPasswordFromString(AESCryptUtil.decrypt(sp?.getString(bean.getUsername(), null), AES_KEY))
+        bean.setPassword(password!!)
+        edit?.putString(SP_REMEMBER_NAME,AESCryptUtil.encrypt(bean.getUserBeanString(), AES_KEY)) //储存记住的账号密码
+        edit?.putString(bean.getUsername(),AESCryptUtil.encrypt(bean.getUserBeanString(), AES_KEY)) //储存账号密码
         edit?.apply()
     }
 

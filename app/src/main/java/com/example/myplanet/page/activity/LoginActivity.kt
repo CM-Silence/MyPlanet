@@ -79,7 +79,7 @@ class LoginActivity : BaseActivity() {
      */
     private fun login(username : String,password : String){
         if(LoginModel.isSamePassword(username, password)){
-            val userBean = UserBean(username, password)
+            val userBean = LoginModel.getUserBean(username)!!
             if(mCbAutoLogin.isChecked){ //如果勾选了自动登录
                 userBean.setAutoLogin(true)
             }

@@ -11,11 +11,12 @@ import com.example.myplanet.R
 import com.example.myplanet.base.AppManager
 import com.example.myplanet.base.BaseFragment
 import com.example.myplanet.bean.UserBean
+import com.example.myplanet.model.LoginModel
 import com.example.myplanet.page.activity.LoginActivity
 import com.example.myplanet.page.activity.MainActivity
+import com.example.myplanet.page.dialog.CompleteInformationDialog
 import com.example.myplanet.utils.ToastUtil
 import com.google.android.material.imageview.ShapeableImageView
-import kotlin.math.log
 
 /**
  * @ClassName MineFragment
@@ -65,9 +66,18 @@ class MineFragment(title : String = "") : BaseFragment(title) {
         if(activity != null) {
             val activity = activity as MainActivity
             userBean = activity.getUserBean()
-            mTvName.text = userBean.getName()
-            mTvSignature.text = userBean.getSignature()
+            upDateTextView()
         }
+    }
+
+    /**
+     * @Description 用于更新TextView上显示的用户信息
+     * @author Silence~
+     * @date 2022/5/2 20:09
+     */
+    private fun upDateTextView(){
+        mTvName.text = userBean.getName()
+        mTvSignature.text = userBean.getSignature()
     }
 
     private fun initClick(){
@@ -87,6 +97,20 @@ class MineFragment(title : String = "") : BaseFragment(title) {
                 }
                 show()
             }
+        }
+        mIvHead.setOnClickListener {
+            CompleteInformationDialog(this.requireContext(),userBean.getName(),userBean.getSignature(),
+                object : CompleteInformationDialog.OnCloseListener{
+                    override fun onClose(name: String, signature: String) {
+                        userBean.setName(name)
+                        userBean.setSignature(signature)
+                        LoginModel.addNonPasswordUserBean(userBean)
+                        upDateTextView()
+                        if(userBean.isRemember()){
+                            LoginModel.setNonPasswordRememberUser(userBean)
+                        }
+                    }
+                }).show()
         }
         mBtnExperience.setOnClickListener {
             ToastUtil.show("还在爆肝哦,再等一阵子就能使用啦qwq")

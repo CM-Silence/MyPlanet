@@ -14,6 +14,7 @@ data class UserBean(private val username : String, //账号
                     private var password : String, //密码
                     private var isRemember: Boolean = false, //是否记住密码
                     private var isAutoLogin : Boolean = false, //是否自动登录
+                    private var isNew : Boolean = true, //是否是新用户
                     private var name : String = "",  //昵称
                     private var signature: String = "",  //个性签名
                     private var headPortraitAddress : String = ""  //头像地址
@@ -21,8 +22,6 @@ data class UserBean(private val username : String, //账号
 
 
     companion object {
-
-        //private const val AES_KEY = "1234987655552333" //解密的密钥,可以随时更换,不过长度要大于等于16位
 
         /**
          * @Description 将一段字符串转换为UserBean类对象的方法
@@ -40,9 +39,10 @@ data class UserBean(private val username : String, //账号
                 split[1],
                 java.lang.Boolean.parseBoolean(split[2]),
                 java.lang.Boolean.parseBoolean(split[3]),
-                split[4],
+                java.lang.Boolean.parseBoolean(split[4]),
                 split[5],
-                split[6]
+                split[6],
+                split[7]
             )
         }
 
@@ -68,7 +68,7 @@ data class UserBean(private val username : String, //账号
      * @return 一个字符串,记录了账号的信息
      * @date 2022/4/30 17:30
      */
-    fun getUserBeanString() = "${username},${password},${isRemember},${isAutoLogin},${name},${signature},${headPortraitAddress}"
+    fun getUserBeanString() = "${username},${password},${isRemember},${isAutoLogin},${isNew},${name},${signature},${headPortraitAddress}"
 
     fun getUsername() = username
     fun getPassword() = password
@@ -77,6 +77,7 @@ data class UserBean(private val username : String, //账号
     fun getHeadPortraitAddress() = headPortraitAddress
     fun isRemember() = isRemember
     fun isAutoLogin() = isAutoLogin
+    fun isNew() = isNew
 
     fun setPassword(password: String){
         this.password = password
@@ -88,6 +89,10 @@ data class UserBean(private val username : String, //账号
 
     fun setAutoLogin(isAutoLogin: Boolean){
         this.isAutoLogin = isAutoLogin
+    }
+
+    fun setNew(isNew : Boolean){
+        this.isNew = isNew
     }
 
     fun setName(name : String){
