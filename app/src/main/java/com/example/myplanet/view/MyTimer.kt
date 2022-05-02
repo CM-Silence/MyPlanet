@@ -6,15 +6,9 @@ import android.content.Context
 import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.animation.Animation
-import android.view.animation.RotateAnimation
 import android.widget.ImageView
 import android.widget.RelativeLayout
-import android.widget.TextView
 import com.example.myplanet.R
-import kotlin.math.PI
-import kotlin.math.cos
-import kotlin.math.sin
 
 /**
  * @ClassName MyTimer
@@ -74,6 +68,7 @@ class MyTimer(context: Context, attributeSet: AttributeSet) : RelativeLayout(con
      */
     fun startCountDown(minute : Int, second : Int){
         process = (second + 60 * minute) / 7200f
+        this.clearAnimation()
         ObjectAnimator.ofFloat(this, "rotation", this.rotation, process * 360)
             .setDuration(1000).start()
         changeSecond = 0
