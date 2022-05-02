@@ -48,9 +48,9 @@ class RegisterDialog(@NonNull context: Context, username: String, password: Stri
     }
 
     private fun initView(){
-        mEtUsername = findViewById(R.id.dialog_et_register_username)
-        mEtPassword1 = findViewById(R.id.dialog_et_register_password1)
-        mEtPassword2 = findViewById(R.id.dialog_et_register_password2)
+        mEtUsername = findViewById(R.id.dialog_tie_register_username)
+        mEtPassword1 = findViewById(R.id.dialog_tie_register_password1)
+        mEtPassword2 = findViewById(R.id.dialog_tie_register_password2)
         mBtnRegister = findViewById(R.id.dialog_btn_register_register)
 
         mEtUsername.setText(mUserBean.getUsername())

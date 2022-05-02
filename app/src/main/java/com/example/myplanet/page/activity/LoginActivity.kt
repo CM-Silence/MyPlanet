@@ -49,8 +49,8 @@ class LoginActivity : BaseActivity() {
      * @date 2022/4/27 11:04
      */
     private fun initView(){
-        mEtUsername = findViewById(R.id.activity_et_login_username)
-        mEtPassword = findViewById(R.id.activity_et_login_password)
+        mEtUsername = findViewById(R.id.activity_tie_login_username)
+        mEtPassword = findViewById(R.id.activity_tie_login_password)
         mCbRemember = findViewById(R.id.activity_cb_login_remember)
         mCbAutoLogin = findViewById(R.id.activity_cb_login_autologin)
         mBtnLogin = findViewById(R.id.activity_btn_login_login)

@@ -57,7 +57,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/activity_et_login_username"
+            android:id="@+id/activity_tie_login_username"
             android:hint="请输入账号"
             android:drawableStart="@drawable/ic_baseline_user"
             android:inputType="number"
@@ -80,7 +80,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/activity_et_login_password"
+            android:id="@+id/activity_tie_login_password"
             android:hint="请输入密码"
             android:drawableStart="@drawable/ic_baseline_lock"
             android:inputType="textPassword"

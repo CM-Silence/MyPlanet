@@ -27,7 +27,7 @@
             tools:ignore="HardcodedText">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/dialog_et_register_username"
+                android:id="@+id/dialog_tie_register_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="8dp"
@@ -59,7 +59,7 @@
             tools:ignore="HardcodedText">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/dialog_et_register_password1"
+                android:id="@+id/dialog_tie_register_password1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="8dp"
@@ -90,7 +90,7 @@
             tools:ignore="HardcodedText">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/dialog_et_register_password2"
+                android:id="@+id/dialog_tie_register_password2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawablePadding="8dp"
