@@ -44,4 +44,9 @@ open class BaseActivity : AppCompatActivity() {
                 or View.SYSTEM_UI_FLAG_FULLSCREEN
                 or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
     }
+
+    //防止按回退键后直接退出程序
+    override fun onBackPressed() {
+        moveTaskToBack(true)
+    }
 }
