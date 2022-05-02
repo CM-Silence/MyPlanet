@@ -5,10 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.CheckBox
-import android.widget.Toast
 import com.example.myplanet.R
 import com.example.myplanet.base.BaseActivity
-import com.example.myplanet.base.MyApplication
 import com.example.myplanet.bean.UserBean
 import com.example.myplanet.model.LoginModel
 import com.example.myplanet.page.dialog.RegisterDialog

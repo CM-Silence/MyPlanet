@@ -1,7 +1,6 @@
 package com.example.myplanet.base
 
 import android.app.Activity
-import androidx.fragment.app.Fragment
 
 /**
  * @ClassName AppManager
@@ -11,7 +10,7 @@ import androidx.fragment.app.Fragment
  */
 object AppManager {
     private val activities = ArrayList<Activity>()
-    private val fragments = ArrayList<Fragment>()
+    //private val fragments = ArrayList<Fragment>()
 
     /**
      * @Description 将一个Activity添加进列表中

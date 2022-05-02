@@ -38,7 +38,7 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
 
     private lateinit var timeChangeThread : Thread
 
-    private val mMyHandler = MyHandler()
+    //private val mMyHandler = MyHandler()
     private val mHandler = object : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
             when (msg.what) {
@@ -163,6 +163,7 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
         return this.toString()
     }
 
+    /*
     /**
      * @ClassName MyHandler
      * @author Silence~
@@ -178,4 +179,6 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
             }
         }
     }
+
+    */
 }
