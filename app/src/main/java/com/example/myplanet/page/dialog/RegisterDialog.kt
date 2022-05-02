@@ -8,6 +8,7 @@ import androidx.annotation.NonNull
 import androidx.core.widget.addTextChangedListener
 import com.example.myplanet.R
 import com.example.myplanet.bean.UserBean
+import com.example.myplanet.model.LoginModel
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 
@@ -70,18 +71,21 @@ class RegisterDialog(@NonNull context: Context, username: String, password: Stri
         mEtUsername.addTextChangedListener {
             if (mEtUsername.text.toString().length < 8 ||
                 mEtUsername.text.toString().length > 12) {
-                mEtUsername.error = "用户名长度为8-12"
-            } else {
+                mEtUsername.error = "用户名长度为8-12!"
+            } else if(LoginModel.isAlreadyRegister(mEtUsername.text.toString())){
+                mEtUsername.error = "该用户名已被注册!"
+            }
+            else {
                 mEtUsername.error = null
             }
         }
         mEtPassword1.addTextChangedListener {
             if (mEtPassword1.text.toString().length < 6 ||
                 mEtPassword1.text.toString().length > 16) {
-                mEtPassword1.error = "密码长度为6-16"
+                mEtPassword1.error = "密码长度为6-16!"
             }
             else if (!it.toString().matches(".*[a-zA-Z]+.*".toRegex())) {
-                mEtPassword1.error = "密码必须包含字母"
+                mEtPassword1.error = "密码必须包含字母!"
             }
             else {
                 mEtPassword1.error = null
@@ -89,7 +93,7 @@ class RegisterDialog(@NonNull context: Context, username: String, password: Stri
         }
         mEtPassword2.addTextChangedListener {
             if (mEtPassword2.text.toString() != mEtPassword1.text.toString()) {
-                mEtPassword2.error = "两次输入的密码不一致"
+                mEtPassword2.error = "两次输入的密码不一致!"
             } else {
                 mEtPassword2.error = null
             }
@@ -101,21 +105,27 @@ class RegisterDialog(@NonNull context: Context, username: String, password: Stri
         val password1 = mEtPassword1.text.toString()
         val password2 = mEtPassword2.text.toString()
         var isOk = true
-        if (username.isEmpty() || mEtUsername.error != null) {
+        if (isOk && (username.length < 8 ||
+                    username.length > 12 ||
+                    mEtUsername.error != null)) {
+            mEtUsername.error = "用户名长度为8-12!"
             isOk = false
-            mEtUsername.error = "用户名不能为空!"
         }
         if (isOk && (password1.length < 6 ||
                     password1.length > 16 ||
                     mEtPassword1.error != null)) {
+            mEtPassword1.error = "密码长度为6-16!"
             isOk = false
-            mEtPassword1.error = "密码格式错误!"
         }
         if (isOk && (password2 != password1 || mEtPassword2.error != null)) {
-            isOk = false
             mEtPassword2.error = "两次输入的密码不一致!"
+            isOk = false
         }
-        if (isOk) {
+        if (isOk && LoginModel.isAlreadyRegister(username) ) {
+            mEtUsername.error = "该用户名已被注册!"
+            isOk = false
+        }
+        if (isOk){
             mUserBean = UserBean(username,password1)
             mOnCloseListener.onClose(mUserBean)
             dismiss()

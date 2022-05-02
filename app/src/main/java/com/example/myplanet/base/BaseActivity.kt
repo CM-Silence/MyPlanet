@@ -2,7 +2,6 @@ package com.example.myplanet.base
 
 import android.app.Activity
 import android.content.pm.ActivityInfo
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -24,7 +23,7 @@ open class BaseActivity : AppCompatActivity() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT //锁定竖屏
         fullScreen(this)
         Log.d("BaseActivity","${javaClass.simpleName} onCreate") //打印当前活动的类名
-        ActivityManager.addActivity(this)
+        AppManager.addActivity(this)
     }
 
     /**
@@ -34,7 +33,7 @@ open class BaseActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         Log.d("BaseActivity","${javaClass.simpleName} onDestroy") //打印当前活动的类名
-        ActivityManager.removeActivity(this)
+        AppManager.removeActivity(this)
     }
     private fun fullScreen(activity: Activity) {
         val decorView = activity.window.decorView

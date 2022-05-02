@@ -45,6 +45,21 @@ data class UserBean(private val username : String, //账号
                 split[6]
             )
         }
+
+        /**
+         * @Description 从记录账号信息的字符串中获取其密码的方法
+         * @return
+         * @Param
+         * @author Silence~
+         * @date 2022/5/2 17:14
+         */
+        fun getPasswordFromString(content: String?): String? {
+            if (content == null) {
+                return null
+            }
+            val split = content.split(",")
+            return split[1]
+        }
     }
 
 

@@ -12,6 +12,7 @@ import com.example.myplanet.base.MyApplication
 import com.example.myplanet.bean.UserBean
 import com.example.myplanet.model.LoginModel
 import com.example.myplanet.page.dialog.RegisterDialog
+import com.example.myplanet.utils.ToastUtil
 import com.google.android.material.textfield.TextInputEditText
 
 /**
@@ -29,8 +30,9 @@ class LoginActivity : BaseActivity() {
     private lateinit var mBtnRegister : Button
 
     companion object{
-        fun startActivity(context: Context){
+        fun startActivity(context: Context,isLogout : Boolean = false){
             val intent = Intent(context, LoginActivity::class.java)
+            intent.putExtra("param",isLogout)
             context.startActivity(intent)
         }
     }
@@ -99,7 +101,7 @@ class LoginActivity : BaseActivity() {
             MainActivity.startActivity(this,userBean)
         }
         else{
-            Toast.makeText(MyApplication.getAppContext(), "账号或密码错误!", Toast.LENGTH_SHORT).show()
+            ToastUtil.show("账号或密码错误!")
         }
     }
 
@@ -115,7 +117,7 @@ class LoginActivity : BaseActivity() {
                 mEtUsername.setText(bean.getUsername())
                 mEtPassword.setText(bean.getPassword())
                 LoginModel.addUserBean(bean)
-                Toast.makeText(MyApplication.getAppContext(), "注册成功!账号为:${bean.getUsername()},密码为${bean.getPassword()}", Toast.LENGTH_SHORT).show()
+                ToastUtil.show("注册成功!账号为:${bean.getUsername()}",true)
             }
         }).show()
     }
@@ -131,7 +133,8 @@ class LoginActivity : BaseActivity() {
             mEtPassword.setText(userBean.getPassword())
             mCbRemember.isChecked = userBean.isRemember()
             mCbAutoLogin.isChecked = userBean.isAutoLogin()
-            if(mCbAutoLogin.isChecked){ //如果用户勾选了记住密码则直接登录
+            //如果用户勾选了记住密码则直接登录(除非是用户自己退出登录)
+            if(mCbAutoLogin.isChecked && !intent.getBooleanExtra("param",false)){
                 userBean.setPassword("") //清除密码后传入MainActivity
                 MainActivity.startActivity(this,userBean)
             }

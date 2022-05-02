@@ -1,15 +1,17 @@
 package com.example.myplanet.base
 
 import android.app.Activity
+import androidx.fragment.app.Fragment
 
 /**
- * @ClassName ActivityManager
+ * @ClassName AppManager
  * @author Silence~
  * @date 2022/4/27
- * @Description 用于管理Activity的类
+ * @Description 用于管理Activity和Fragment的类
  */
-object ActivityManager {
+object AppManager {
     private val activities = ArrayList<Activity>()
+    private val fragments = ArrayList<Fragment>()
 
     /**
      * @Description 将一个Activity添加进列表中

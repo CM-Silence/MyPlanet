@@ -61,6 +61,21 @@ object LoginModel {
     }
 
     /**
+     * @Description 用于更改账号设置
+     * @Param bean 要添加的UserBean
+     * @author Silence~
+     * @date 2022/5/2 17:10
+     */
+    fun addNonPasswordUserBean(bean: UserBean) {
+        val sp = getSp()
+        val edit = sp?.edit()
+        val password = UserBean.getPasswordFromString(AESCryptUtil.decrypt(sp?.getString(bean.getUsername(), null), AES_KEY))
+        bean.setPassword(password!!)
+        edit?.putString(bean.getUsername(), AESCryptUtil.encrypt(bean.getUserBeanString(), AES_KEY) )
+        edit?.apply()
+    }
+
+    /**
      * @return 返回true则账号密码正确,反之则错误
      * @Param username 传入的账号
      * @param password 传入的密码
@@ -73,6 +88,17 @@ object LoginModel {
         return if (bean != null) {
             password == bean.getPassword()
         } else false
+    }
+
+    /**
+     * @return 返回true说明用户已注册,返回false则反之
+     * @Param username 传入的账号
+     * @date 2022/5/2 17:53
+     */
+    fun isAlreadyRegister(username: String): Boolean {
+        val sp = getSp()
+        val beanString = AESCryptUtil.decrypt(sp?.getString(username, null), AES_KEY)
+        return beanString != null
     }
 
     /**
