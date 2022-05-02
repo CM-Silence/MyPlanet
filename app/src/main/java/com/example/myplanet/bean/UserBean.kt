@@ -17,8 +17,18 @@ data class UserBean(private val username : String, //账号
                     private var isNew : Boolean = true, //是否是新用户
                     private var name : String = "",  //昵称
                     private var signature: String = "",  //个性签名
-                    private var headPortraitAddress : String = ""  //头像地址
+                    private var headPortraitAddress : String = "",  //头像地址
+                    private val planetList: ArrayList<PlanetBean> = ArrayList<PlanetBean>() //用户的星球
                     ) : Serializable{
+
+    fun addPlanet(planetBean: PlanetBean){
+        planetList.add(planetBean)
+    }
+
+    fun removePlanet(planetBean: PlanetBean){
+        planetList.remove(planetBean)
+    }
+
 
 
     companion object {
@@ -34,16 +44,19 @@ data class UserBean(private val username : String, //账号
                 return null
             }
             val split = content.split(",")
-            return UserBean(
-                split[0],
-                split[1],
-                java.lang.Boolean.parseBoolean(split[2]),
-                java.lang.Boolean.parseBoolean(split[3]),
-                java.lang.Boolean.parseBoolean(split[4]),
-                split[5],
-                split[6],
-                split[7]
-            )
+            return PlanetBean.getPlanetListFromString(split[8])?.let {
+                UserBean(
+                    split[0],
+                    split[1],
+                    java.lang.Boolean.parseBoolean(split[2]),
+                    java.lang.Boolean.parseBoolean(split[3]),
+                    java.lang.Boolean.parseBoolean(split[4]),
+                    split[5],
+                    split[6],
+                    split[7],
+                    it
+                )
+            }
         }
 
         /**
@@ -68,7 +81,13 @@ data class UserBean(private val username : String, //账号
      * @return 一个字符串,记录了账号的信息
      * @date 2022/4/30 17:30
      */
-    fun getUserBeanString() = "${username},${password},${isRemember},${isAutoLogin},${isNew},${name},${signature},${headPortraitAddress}"
+    fun getUserBeanString() : String{
+        var data = "${username},${password},${isRemember},${isAutoLogin},${isNew},${name},${signature},${headPortraitAddress},"
+        for (planet in planetList){
+            data += (planet.getPlanetBeanString() + "@")
+        }
+        return data
+    }
 
     fun getUsername() = username
     fun getPassword() = password

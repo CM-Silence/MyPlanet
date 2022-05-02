@@ -8,6 +8,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.myplanet.R
 import com.example.myplanet.base.BaseActivity
 import com.example.myplanet.base.BaseFragment
+import com.example.myplanet.bean.PlanetBean
 import com.example.myplanet.bean.UserBean
 import com.example.myplanet.model.LoginModel
 import com.example.myplanet.page.adapter.MainVp2Adapter
@@ -95,6 +96,12 @@ class MainActivity : BaseActivity() {
                         mUserBean.setName(name)
                         mUserBean.setSignature(signature)
                         mUserBean.setNew(false)
+                        mUserBean.addPlanet(PlanetBean("earth",0,0,R.drawable.drawable_earth))
+                        mUserBean.addPlanet(PlanetBean("mars",0,0,R.drawable.drawable_mars))
+                        mUserBean.addPlanet(PlanetBean("neptune",0,0,R.drawable.drawable_neptune))
+                        mUserBean.addPlanet(PlanetBean("saturn",0,0,R.drawable.drawable_saturn))
+                        mUserBean.addPlanet(PlanetBean("uranus",0,0,R.drawable.drawable_uranus))
+                        mUserBean.addPlanet(PlanetBean("venus",0,0,R.drawable.drawable_venus))
                         LoginModel.addNonPasswordUserBean(mUserBean)
                         if(mUserBean.isRemember()){
                             LoginModel.setNonPasswordRememberUser(mUserBean)
