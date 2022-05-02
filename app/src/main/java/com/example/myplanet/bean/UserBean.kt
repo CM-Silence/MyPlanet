@@ -21,12 +21,29 @@ data class UserBean(private val username : String, //账号
                     private val planetList: ArrayList<PlanetBean> = ArrayList<PlanetBean>() //用户的星球
                     ) : Serializable{
 
+    fun getPlanetList() = planetList
+
     fun addPlanet(planetBean: PlanetBean){
         planetList.add(planetBean)
     }
 
     fun removePlanet(planetBean: PlanetBean){
         planetList.remove(planetBean)
+    }
+
+    /**
+     * @Description 用于将星球置顶的方法
+     * @Param planetBean 需要置顶的星球
+     * @date 2022/5/2 21:37
+     */
+    fun setFirstPlanet(planetBean: PlanetBean){
+        for (i in 0 until planetList.size){
+            if(planetList[i] == planetBean){
+                val temp = planetList[0]
+                planetList[0] = planetBean
+                planetList[i] = temp
+            }
+        }
     }
 
 

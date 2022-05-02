@@ -29,7 +29,9 @@ import com.example.myplanet.page.adapter.ChoosePlanetRvAdapter
  * @date 2022/5/2
  * @Description 切换星球的下方弹窗
  */
-open class ChoosePlanetDialogFragment(private var mActivity: FragmentActivity, private val listener: OnCloseListener) : DialogFragment(){
+open class ChoosePlanetDialogFragment(private var mActivity: FragmentActivity,
+                                      private val planetList : ArrayList<PlanetBean>,
+                                      private val listener: OnCloseListener) : DialogFragment(){
 
     private lateinit var mRvPlanet : RecyclerView
     private lateinit var mTvName : TextView
@@ -37,13 +39,9 @@ open class ChoosePlanetDialogFragment(private var mActivity: FragmentActivity, p
     private lateinit var mTvTime : TextView
     private lateinit var mBtnChange : Button
 
-    private val planetList = ArrayList<PlanetBean>()
 
     private var mPlanetBean : PlanetBean? = null
 
-    fun setActivity(mActivity: FragmentActivity) {
-        this.mActivity = mActivity
-    }
 
     override fun getTheme(): Int {
         return R.style.style_dialogfragment
@@ -115,12 +113,6 @@ open class ChoosePlanetDialogFragment(private var mActivity: FragmentActivity, p
     }
 
     private fun initRv(){
-        planetList.add(PlanetBean("earth",0,0,R.drawable.drawable_earth))
-        planetList.add(PlanetBean("mars",0,0,R.drawable.drawable_mars))
-        planetList.add(PlanetBean("neptune",0,0,R.drawable.drawable_neptune))
-        planetList.add(PlanetBean("saturn",0,0,R.drawable.drawable_saturn))
-        planetList.add(PlanetBean("uranus",0,0,R.drawable.drawable_uranus))
-        planetList.add(PlanetBean("venus",0,0,R.drawable.drawable_venus))
 
         val layoutManager = LinearLayoutManager(this.requireContext())
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
@@ -130,7 +122,7 @@ open class ChoosePlanetDialogFragment(private var mActivity: FragmentActivity, p
             override fun onClickItem(planet: PlanetBean) {
                 mTvName.text = "名称:${planet.getName()}"
                 mTvPreview.text = "预计点亮时长:${planet.getPreviewTime()}"
-                mTvTime.text = "已专注:${planet.getTime()}min"
+                mTvTime.text = "已专注:${planet.getTime() / 60}min"
                 mPlanetBean = planet
             }
         })

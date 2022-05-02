@@ -18,6 +18,22 @@ data class PlanetBean(private var name : String,
     fun getTime() = time
     fun getImageID() = imageID
 
+    fun setName(name : String){
+        this.name = name
+    }
+    fun setPreviewTime(time: Int){
+        this.previewTime = time
+    }
+    fun setTime(time: Int){
+        this.time = time
+    }
+    fun addTime(addTime: Int){
+        this.time += addTime
+    }
+    fun setImageID(imageID: Int){
+        this.imageID = imageID
+    }
+
     companion object {
 
         /**

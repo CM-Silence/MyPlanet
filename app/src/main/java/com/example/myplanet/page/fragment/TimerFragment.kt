@@ -16,6 +16,9 @@ import com.example.myplanet.R
 import com.example.myplanet.base.BaseFragment
 import com.example.myplanet.base.MyApplication
 import com.example.myplanet.bean.PlanetBean
+import com.example.myplanet.bean.UserBean
+import com.example.myplanet.model.LoginModel
+import com.example.myplanet.page.activity.MainActivity
 import com.example.myplanet.page.dialog.ChoosePlanetDialogFragment
 import com.example.myplanet.page.dialog.TimerDialog
 import com.example.myplanet.view.MyCircle
@@ -37,6 +40,8 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
     private lateinit var mIvMoon: ImageView
 
     private lateinit var timeChangeThread : Thread
+
+    private lateinit var userBean: UserBean
 
     //private val mMyHandler = MyHandler()
     private val mHandler = object : Handler(Looper.getMainLooper()) {
@@ -66,6 +71,7 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
         super.onViewCreated(view, savedInstanceState)
         initView(view)
         initEvent()
+        initData()
     }
 
     private fun initView(view: View) {
@@ -78,15 +84,23 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
         mBtnPlanet.bringToFront()
     }
 
+    private fun initData(){
+        if(activity != null) {
+            val activity = activity as MainActivity
+            userBean = activity.getUserBean()
+        }
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     private fun initEvent() {
         mBtnPlanet.setOnClickListener {
             if(!isCountDown) {
                 Toast.makeText(MyApplication.getAppContext(), "planet", Toast.LENGTH_SHORT).show()
-                ChoosePlanetDialogFragment(this.requireActivity(),object  : ChoosePlanetDialogFragment.OnCloseListener{
+                ChoosePlanetDialogFragment(this.requireActivity(),userBean.getPlanetList(),object  : ChoosePlanetDialogFragment.OnCloseListener{
                     override fun onClose(planet : PlanetBean) {
                         mBtnPlanet.setImageResource(planet.getImageID())
                         mTvName.text = planet.getName()
+                        userBean.setFirstPlanet(planet)
                     }
                 }).show()
             }
@@ -125,22 +139,29 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
         if(!isCountDown) {
             timeChangeThread = Thread {
                 while (second != 0 || minute != 0) {
-                    sleep(1000L)
+                    sleep(1000L) //等待一秒
+
+                    //时间运算
                     if (second != 0) {
                         second--
                     } else if (second == 0 && minute != 0) {
                         minute--
                         second += 59
                     }
+
+                    userBean.getPlanetList()[0].addTime(1) //星球专注时间+1
+
+                    //用handler发消息把UI操作交给主线程
                     val msg = Message.obtain()
                     msg.what = 1
                     mHandler.sendMessage(msg)
+
                 }
                 isCountDown = false
             }
             timeChangeThread.start()
         }
-        else{
+        else{ //如果已经在倒计时则停止原来的计时并重新开始
             Thread{
                 timeChangeThread.interrupt()
                 sleep(1000)
@@ -148,6 +169,15 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
             }
         }
         isCountDown = true
+    }
+
+    /**
+     * @Description 退出后保存用户数据
+     * @date 2022/5/2 21:29
+     */
+    override fun onDestroy() {
+        super.onDestroy()
+        LoginModel.addNonPasswordUserBean(userBean)
     }
 
     /**
