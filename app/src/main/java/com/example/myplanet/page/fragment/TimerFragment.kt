@@ -69,9 +69,9 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initData()
         initView(view)
         initEvent()
-        initData()
     }
 
     private fun initView(view: View) {
@@ -82,6 +82,8 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
         mMyCircle = view.findViewById(R.id.view_mycircle_circle)
         mIvMoon = view.findViewById(R.id.view_iv_moon)
         mBtnPlanet.bringToFront()
+
+        mBtnPlanet.setImageResource(userBean.getPlanetList()[0].getImageID())
     }
 
     private fun initData(){
@@ -174,8 +176,8 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
      * @Description 退出后保存用户数据
      * @date 2022/5/2 21:29
      */
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onStop() {
+        super.onStop()
         LoginModel.addNonPasswordUserBean(userBean)
     }
 

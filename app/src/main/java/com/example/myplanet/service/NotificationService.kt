@@ -23,5 +23,10 @@ class NotificationService : Service() {
             val intent = Intent(context, NotificationService::class.java)
             context.startService(intent)
         }
+
+        fun stopService(context : Context){
+            val intent = Intent(context, NotificationService::class.java)
+            context.stopService(intent)
+        }
     }
 }
