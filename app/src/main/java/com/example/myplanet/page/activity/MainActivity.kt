@@ -29,6 +29,8 @@ class MainActivity : BaseActivity() {
     private lateinit var mVp2Page : ViewPager2
     private lateinit var mTlPage : TabLayout
 
+    fun getUserBean() = mUserBean
+
     //private var pressTime = 0L //按压计时器的时间,用于检测计时器的长按事件
     //private var px = 0f
     //private var py = 0f

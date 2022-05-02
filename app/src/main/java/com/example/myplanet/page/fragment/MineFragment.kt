@@ -10,9 +10,12 @@ import android.widget.TextView
 import com.example.myplanet.R
 import com.example.myplanet.base.AppManager
 import com.example.myplanet.base.BaseFragment
+import com.example.myplanet.bean.UserBean
 import com.example.myplanet.page.activity.LoginActivity
+import com.example.myplanet.page.activity.MainActivity
 import com.example.myplanet.utils.ToastUtil
 import com.google.android.material.imageview.ShapeableImageView
+import kotlin.math.log
 
 /**
  * @ClassName MineFragment
@@ -30,6 +33,8 @@ class MineFragment(title : String = "") : BaseFragment(title) {
     private lateinit var mBtnLogout: Button
     private lateinit var mIvHead: ShapeableImageView
 
+    private lateinit var userBean: UserBean
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,6 +47,7 @@ class MineFragment(title : String = "") : BaseFragment(title) {
         super.onViewCreated(view, savedInstanceState)
         initView(view)
         initClick()
+        initData()
     }
 
     private fun initView(view : View){
@@ -53,6 +59,15 @@ class MineFragment(title : String = "") : BaseFragment(title) {
         mBtnSetting = view.findViewById(R.id.fragment_btn_mine_setting)
         mBtnLogout = view.findViewById(R.id.fragment_btn_mine_logout)
         mIvHead = view.findViewById(R.id.fragment_shapeableimageview_mine_head)
+    }
+
+    private fun initData(){
+        if(activity != null) {
+            val activity = activity as MainActivity
+            userBean = activity.getUserBean()
+            mTvName.text = userBean.getName()
+            mTvSignature.text = userBean.getSignature()
+        }
     }
 
     private fun initClick(){
