@@ -68,7 +68,8 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
                 }
 
                 override fun onOver() {
-                    this@TimerFragment.isCountDown = false
+                    isCountDown = false
+                    LoginModel.addNonPasswordUserBean(userBean)
                 }
             })
         }
@@ -185,6 +186,11 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
     override fun onStop() {
         super.onStop()
         LoginModel.addNonPasswordUserBean(userBean)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        this.activity?.unbindService(connection)
     }
 
     /*

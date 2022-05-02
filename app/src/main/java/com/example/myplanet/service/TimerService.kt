@@ -71,6 +71,27 @@ class TimerService : Service() {
         second = mBinder.getSecond()
     }
 
+    private fun sentImportantNotification(title : String, content : String){
+        val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val channel = NotificationChannel("time_important","开始及结束倒计时提醒",NotificationManager.IMPORTANCE_HIGH)
+        manager.createNotificationChannel(channel)
+        val intent = Intent(this, MainActivity::class.java)
+        val pendingIntent = PendingIntent.getActivity(this,0,intent,0)
+        val notification = NotificationCompat.Builder(this, "time_important")
+            .setContentTitle(title)
+            .setContentText(content)
+            .setSmallIcon(R.drawable.drawable_earth)
+            .setLargeIcon(
+                BitmapFactory.decodeResource(
+                    resources,
+                    R.drawable.drawable_earth
+                )
+            )
+            .setContentIntent(pendingIntent)
+            .build()
+        startForeground(2, notification)
+    }
+
     private fun initNotification(){
         manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         channel = NotificationChannel("time","倒计时提醒",NotificationManager.IMPORTANCE_LOW)
@@ -121,6 +142,7 @@ class TimerService : Service() {
                     upDateNotification()
                 }
                 isCountDown = false
+                sentImportantNotification("倒计时结束提醒","再去看看其他的星球吧!")
                 onTimeChangeListener.onOver()
             }
             timeChangeThread.start()
@@ -132,6 +154,7 @@ class TimerService : Service() {
             }
         }
         isCountDown = true
+        sentImportantNotification("开始倒计时提醒","已经开始专注于这颗星球了哦!")
     }
 
     fun setOnTimeChangeListener(onTimeChangeListener: OnTimeChangeListener) {
