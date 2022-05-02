@@ -1,5 +1,6 @@
 package com.example.myplanet.page.dialog
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
@@ -119,7 +120,14 @@ open class ChoosePlanetDialogFragment(private var mActivity: FragmentActivity, p
         val layoutManager = LinearLayoutManager(this.requireContext())
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
         mRvPlanet.layoutManager = layoutManager
-        val adapter = ChoosePlanetRvAdapter(planetList)
+        val adapter = ChoosePlanetRvAdapter(planetList,object : ChoosePlanetRvAdapter.OnClickItemListener{
+            @SuppressLint("SetTextI18n")
+            override fun onClickItem(planet: PlanetBean) {
+                mTvName.text = "名称:${planet.getName()}"
+                mTvPreview.text = "预计点亮时长:${planet.getPreviewTime()}"
+                mTvTime.text = "已专注:${planet.getTime()}min"
+            }
+        })
         mRvPlanet.adapter = adapter
     }
 
