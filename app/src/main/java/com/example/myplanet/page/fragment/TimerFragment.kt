@@ -95,7 +95,6 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
     private fun initEvent() {
         mBtnPlanet.setOnClickListener {
             if(!isCountDown) {
-                Toast.makeText(MyApplication.getAppContext(), "planet", Toast.LENGTH_SHORT).show()
                 ChoosePlanetDialogFragment(this.requireActivity(),userBean.getPlanetList(),object  : ChoosePlanetDialogFragment.OnCloseListener{
                     override fun onClose(planet : PlanetBean) {
                         mBtnPlanet.setImageResource(planet.getImageID())

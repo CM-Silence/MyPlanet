@@ -21,6 +21,7 @@ import com.example.myplanet.R
 import com.example.myplanet.base.MyApplication
 import com.example.myplanet.bean.PlanetBean
 import com.example.myplanet.page.adapter.ChoosePlanetRvAdapter
+import com.example.myplanet.utils.ToastUtil
 
 
 /**
@@ -132,12 +133,12 @@ open class ChoosePlanetDialogFragment(private var mActivity: FragmentActivity,
     private fun initClick(){
         mBtnChange.setOnClickListener {
             if(mPlanetBean != null){
-                Toast.makeText(MyApplication.getAppContext(), "选择成功!", Toast.LENGTH_SHORT).show()
+                ToastUtil.show("选择成功!")
                 listener.onClose(mPlanetBean!!)
                 dismiss()
             }
             else{
-                Toast.makeText(MyApplication.getAppContext(), "还没有选择星球哦!", Toast.LENGTH_SHORT).show()
+                ToastUtil.show("还没有选择星球哦!")
             }
         }
     }

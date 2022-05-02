@@ -8,7 +8,7 @@ import android.widget.Button
 import androidx.annotation.NonNull
 import androidx.core.widget.addTextChangedListener
 import com.example.myplanet.R
-import com.example.myplanet.model.LoginModel
+import com.example.myplanet.utils.ToastUtil
 import com.google.android.material.textfield.TextInputEditText
 
 /**
@@ -55,12 +55,13 @@ class CompleteInformationDialog(@NonNull context: Context, private val name: Str
                 isOk = false
                 mTieName.error = "昵称的长度为1-10!"
             }
-            if(isOk && signature.length > 20){
+            if(isOk && signature.length > 25){
                 isOk = false
-                mTieSignature.error = "个性签名的长度为0-20!"
+                mTieSignature.error = "个性签名的长度为0-25!"
             }
             if (isOk){
                 listener.onClose(name, signature)
+                ToastUtil.show("已成功修改用户信息!")
                 dismiss()
             }
         }
@@ -79,8 +80,8 @@ class CompleteInformationDialog(@NonNull context: Context, private val name: Str
         }
 
         mTieSignature.addTextChangedListener {
-            if (mTieSignature.text.toString().length > 20) {
-                mTieSignature.error = "个性签名的长度为0-20!"
+            if (mTieSignature.text.toString().length > 25) {
+                mTieSignature.error = "个性签名的长度为0-25!"
             }else {
                 mTieSignature.error = null
             }
