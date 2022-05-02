@@ -48,8 +48,6 @@ class MyProcessBar(context: Context, attributeSet: AttributeSet) : RelativeLayou
     }
 
     private fun move(box: MyBox){
-        val x = (box.left + box.right) / 2f
-        val y = (box.top + box.bottom) / 2f
         box.animate().translationXBy(box.getDirectionX() * MOVE).translationYBy(box.getDirectionY() * MOVE).scaleX(1.5f).scaleY(1.5f).rotationBy(45f).setDuration(800).withEndAction {
             back(box)
         }

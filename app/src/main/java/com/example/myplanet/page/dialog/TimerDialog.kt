@@ -22,14 +22,11 @@ import com.google.android.material.textfield.TextInputEditText
  * @date 2022/5/1
  * @Description 计时器的窗口,用于调整倒计时的时间
  */
-class TimerDialog(@NonNull context: Context,private val listener: OnCloseListener) : Dialog(context) {
+class TimerDialog(@NonNull context: Context, private var minute: Int, private var second: Int ,private val isCountDown : Boolean, private val listener: OnCloseListener) : Dialog(context) {
     private lateinit var mSbTime : SeekBar
     private lateinit var mTvTime : TextView
     private lateinit var mBtnCountDown : Button
     private lateinit var mBtnCancel : Button
-
-    private var second = 0
-    private var minute = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,11 +45,18 @@ class TimerDialog(@NonNull context: Context,private val listener: OnCloseListene
         initEvent()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initView() {
         mSbTime = findViewById(R.id.dialog_sb_timer_time)
         mTvTime = findViewById(R.id.dialog_tv_timer_time)
         mBtnCountDown = findViewById(R.id.dialog_btn_timer_countdown)
         mBtnCancel = findViewById(R.id.dialog_btn_timer_cancel)
+
+        if(isCountDown){
+            mBtnCountDown.text = "更改计时"
+            mSbTime.setProgress((minute * 60 + second) / 72, true)
+            mTvTime.text = "${minute.toTimeString()}:${second.toTimeString()}"
+        }
     }
 
     private fun initClick() {

@@ -1,14 +1,20 @@
 package com.example.myplanet.view
 
+import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
+import android.view.animation.Animation
+import android.view.animation.RotateAnimation
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import android.widget.TextView
 import com.example.myplanet.R
-import java.util.*
+import kotlin.math.PI
+import kotlin.math.cos
+import kotlin.math.sin
 
 /**
  * @ClassName MyTimer
@@ -17,8 +23,11 @@ import java.util.*
  * @Description 计时器
  */
 class MyTimer(context: Context, attributeSet: AttributeSet) : RelativeLayout(context, attributeSet){
-    private lateinit var mIvMoon : ImageView
-    private var second = 0 //剩余秒数
+    private var mIvMoon : ImageView
+    private var process = 0f //倒计时进度(到0代表倒计时结束)
+
+    @Volatile
+    private var changeSecond = 0 //由于1/7200度太小,导致其转不动,所以等待数秒后再进行一次转动
 
     init {
         LayoutInflater.from(context).inflate(R.layout.view_mytimer, this)
@@ -29,9 +38,38 @@ class MyTimer(context: Context, attributeSet: AttributeSet) : RelativeLayout(con
         super.onDraw(canvas)
     }
 
-    fun getSecond() = second
-    fun setSecond(second : Int){
-        this.second = second
+    fun getProcess() = process
+    fun setProcess(process : Float){
+        this.process = process
     }
 
+    /**
+     * @Description 通过传入的分秒计算出倒计时的进度并据此来转动Timer
+     * @Param minute 分
+     * @param second 秒
+     * @date 2022/5/2 12:41
+     */
+    @SuppressLint("SetTextI18n")
+    fun setProcess(minute : Int, second : Int){
+        process = (second + 60 * minute) / 7200f
+        changeSecond++
+        if(changeSecond >= 20) {
+            ObjectAnimator.ofFloat(this, "rotation", this.rotation, this.rotation - 1f)
+                .setDuration(1000).start()
+            changeSecond = 0
+        }
+    }
+
+    /**
+     * @Description 开始计时的方法
+     * @Param minute 分
+     * @param second 秒
+     * @date 2022/5/2 13:57
+     */
+    fun startCountDown(minute : Int, second : Int){
+        process = (second + 60 * minute) / 7200f
+        ObjectAnimator.ofFloat(this, "rotation", this.rotation, process * 360)
+            .setDuration(1000).start()
+        changeSecond = 0
+    }
 }

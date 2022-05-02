@@ -21,6 +21,9 @@ import com.example.myplanet.page.dialog.RegisterDialog
 import com.example.myplanet.page.dialog.TimerDialog
 import com.example.myplanet.view.MyCircle
 import com.example.myplanet.view.MyTimer
+import java.lang.Thread.interrupted
+import java.lang.Thread.sleep
+import kotlin.concurrent.thread
 
 /**
  * @ClassName TimerFragment
@@ -35,7 +38,23 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
     private lateinit var mMyCircle: MyCircle
     private lateinit var mIvMoon: ImageView
 
+    private lateinit var timeChangeThread : Thread
+
+    private val mMyHandler = MyHandler()
+    private val mHandler = object : Handler(Looper.getMainLooper()) {
+        override fun handleMessage(msg: Message) {
+            when (msg.what) {
+                1 -> timeChange()
+            }
+        }
+    }
+
+    @Volatile
     private var isCountDown = false //是否在倒计时
+    @Volatile
+    private var minute = 0
+    @Volatile
+    private var second = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,17 +88,61 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
         }
 
         mMyCircle.setOnLongClickListener {
-            Toast.makeText(MyApplication.getAppContext(), "timer", Toast.LENGTH_SHORT).show()
-            TimerDialog(this.requireContext() , object : TimerDialog.OnCloseListener{
-                @SuppressLint("SetTextI18n")
+            TimerDialog(this.requireContext() ,minute ,second ,isCountDown ,object : TimerDialog.OnCloseListener{
                 override fun onClose(minute : Int, second : Int) {
-                    mTvTime.text = "${minute.toTimeString()}:${second.toTimeString()}"
+                    timeChange()
+                    this@TimerFragment.minute = minute
+                    this@TimerFragment.second = second
+                    countDown()
                 }
             }).show()
             return@setOnLongClickListener true
         }
+    }
 
+    /**
+     * @Description 时间改变时更改mTvTime和mMyCircle的方法
+     * @date 2022/5/2 0:37
+     */
+    @SuppressLint("SetTextI18n")
+    private fun timeChange(){
+        mTvTime.text = "${minute.toTimeString()}:${second.toTimeString()}"
+        mMyTimer.setProcess(minute,second)
+    }
 
+    /**
+     * @Description 开始倒计时的方法
+     * @author Silence~
+     * @date 2022/5/2 0:23
+     */
+    private fun countDown(){
+        mMyTimer.startCountDown(minute,second)
+        if(!isCountDown) {
+            timeChangeThread = Thread {
+                while (second != 0 || minute != 0) {
+                    sleep(1000L)
+                    if (second != 0) {
+                        second--
+                    } else if (second == 0 && minute != 0) {
+                        minute--
+                        second += 59
+                    }
+                    val msg = Message.obtain()
+                    msg.what = 1
+                    mHandler.sendMessage(msg)
+                }
+                isCountDown = false
+            }
+            timeChangeThread.start()
+        }
+        else{
+            Thread{
+                timeChangeThread.interrupt()
+                sleep(1000)
+                timeChangeThread.start()
+            }
+        }
+        isCountDown = true
     }
 
     /**
@@ -88,7 +151,7 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
      * @author Silence~
      * @date 2022/5/2 0:05
      */
-    fun Int.toTimeString() : String{
+    private fun Int.toTimeString() : String{
         if(this < 10){
             return "0${this}"
         }
@@ -106,7 +169,7 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
             when (msg.what) {
-                1 -> return
+
             }
         }
     }
