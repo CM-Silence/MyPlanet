@@ -8,6 +8,9 @@ import android.widget.Button
 import android.widget.FrameLayout
 import com.example.myplanet.R
 import com.example.myplanet.base.BaseFragment
+import com.example.myplanet.bean.PlanetBean
+import com.example.myplanet.bean.UserBean
+import com.example.myplanet.page.activity.MainActivity
 
 /**
  * @ClassName UniverseFragment
@@ -23,6 +26,8 @@ class UniverseFragment(title : String = "") : BaseFragment(title) {
     private var mMainFragment: UniverseMainFragment? = null
     private var mWaitFragment: UniverseWaitFragment? = null
 
+    private lateinit var userBean: UserBean
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,15 +38,25 @@ class UniverseFragment(title : String = "") : BaseFragment(title) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initData()
         initView(view)
         initFragment()
         initClick()
+    }
+
+    private fun initData(){
+        if(activity != null) {
+            val activity = activity as MainActivity
+            userBean = activity.getUserBean()
+        }
     }
 
     private fun initView(view: View){
         mBtnWait = view.findViewById(R.id.fragment_btn_universe_wait)
         mBtnUniverse = view.findViewById(R.id.fragment_btn_universe_universe)
         mFrameLayout = view.findViewById(R.id.fragment_framelayout_universe)
+
+        mBtnUniverse.setBackgroundResource(R.drawable.general_background_press)
     }
 
     private fun initFragment(){
@@ -49,7 +64,7 @@ class UniverseFragment(title : String = "") : BaseFragment(title) {
             mMainFragment = UniverseMainFragment()
         }
         if(mWaitFragment == null){
-            mWaitFragment = UniverseWaitFragment()
+            mWaitFragment = UniverseWaitFragment(userBean.getPlanetList())
         }
         changeFragment(mMainFragment!!)
     }
@@ -57,7 +72,7 @@ class UniverseFragment(title : String = "") : BaseFragment(title) {
     private fun initClick(){
         mBtnWait.setOnClickListener {
             if(mWaitFragment == null){
-                mWaitFragment = UniverseWaitFragment()
+                mWaitFragment = UniverseWaitFragment(userBean.getPlanetList())
             }
             changeFragment(mWaitFragment!!)
             mBtnWait.setBackgroundResource(R.drawable.general_background_press)
