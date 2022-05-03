@@ -17,10 +17,13 @@
         <entry key="..\:/project/Android/MyPlanet/app/src/main/res/layout/dialog_register.xml" value="0.1" />
         <entry key="..\:/project/Android/MyPlanet/app/src/main/res/layout/dialog_timer.xml" value="0.38666666666666666" />
         <entry key="..\:/project/Android/MyPlanet/app/src/main/res/layout/dialogfragment_chooseplanet.xml" value="0.22" />
+        <entry key="..\:/project/Android/MyPlanet/app/src/main/res/layout/dialogfragment_planetinformation.xml" value="0.22" />
         <entry key="..\:/project/Android/MyPlanet/app/src/main/res/layout/fragment_me.xml" value="0.21666666666666667" />
         <entry key="..\:/project/Android/MyPlanet/app/src/main/res/layout/fragment_mine.xml" value="0.16666666666666666" />
         <entry key="..\:/project/Android/MyPlanet/app/src/main/res/layout/fragment_timer.xml" value="0.22" />
-        <entry key="..\:/project/Android/MyPlanet/app/src/main/res/layout/fragment_universe.xml" value="0.21666666666666667" />
+        <entry key="..\:/project/Android/MyPlanet/app/src/main/res/layout/fragment_universe.xml" value="0.7333333333333334" />
+        <entry key="..\:/project/Android/MyPlanet/app/src/main/res/layout/fragment_universe_universe.xml" value="0.21666666666666667" />
+        <entry key="..\:/project/Android/MyPlanet/app/src/main/res/layout/fragment_wait.xml" value="0.21666666666666667" />
         <entry key="..\:/project/Android/MyPlanet/app/src/main/res/layout/view_myplanetshow.xml" value="0.5" />
         <entry key="..\:/project/Android/MyPlanet/app/src/main/res/layout/view_myplanetshow_button.xml" value="0.6" />
         <entry key="..\:/project/Android/MyPlanet/app/src/main/res/layout/view_myprocessbar.xml" value="0.4466666666666667" />

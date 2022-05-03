@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myplanet.R
 import com.example.myplanet.base.MyApplication
 import com.example.myplanet.bean.PlanetBean
+import java.lang.Exception
 
 /**
  * @ClassName ChoosePlanetRvAdapter
@@ -43,6 +44,7 @@ class ChoosePlanetRvAdapter(private val planetList : List<PlanetBean>,private va
                 listener.onClickItem(mPlanetBean)
             }
         }
+
     }
 
     inner class ButtonViewHolder(view : View) : RecyclerView.ViewHolder(view){
@@ -95,11 +97,14 @@ class ChoosePlanetRvAdapter(private val planetList : List<PlanetBean>,private va
     private fun setPlanetChoose(h: ViewHolder){
         for(holder in holderList){
             holder.isChoose = h == holder
-            if(holder.isChoose){
-                holder.mIvPlanet.setBackgroundResource(R.drawable.general_background_full)
-            }
-            else{
-                holder.mIvPlanet.setBackgroundResource(R.drawable.general_background)
+            try {
+                if (holder.isChoose) {
+                    holder.mIvPlanet.setBackgroundResource(R.drawable.general_background_full)
+                } else {
+                    holder.mIvPlanet.setBackgroundResource(R.drawable.general_background)
+                }
+            }catch (e : Exception){
+                e.printStackTrace()
             }
         }
     }

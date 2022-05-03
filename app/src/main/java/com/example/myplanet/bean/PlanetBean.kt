@@ -11,18 +11,14 @@ import java.io.Serializable
 data class PlanetBean(private var name : String,
                       private var previewTime : Int,
                       private var time: Int,
-                      private var imageID : Int): Serializable {
-
-    private var isChoose = false
-    fun isChoose() = isChoose
-    fun setChoose(isChoose : Boolean){
-        this.isChoose = isChoose
-    }
+                      private var imageID : Int,
+                      private var remarks : String = ""): Serializable {
 
     fun getName() = name
     fun getPreviewTime() = previewTime
     fun getTime() = time
     fun getImageID() = imageID
+    fun getRemarks() = remarks
 
     fun setName(name : String){
         this.name = name
@@ -39,6 +35,9 @@ data class PlanetBean(private var name : String,
     fun setImageID(imageID: Int){
         this.imageID = imageID
     }
+    fun setRemarks(remarks: String){
+        this.remarks = remarks
+    }
 
     companion object {
 
@@ -48,7 +47,7 @@ data class PlanetBean(private var name : String,
          * @Param content 一个字符串,记录了星球的信息
          * @date 2022/5/2 20:52
          */
-        fun getPlanetBeanFromString(content: String?): PlanetBean? {
+        private fun getPlanetBeanFromString(content: String?): PlanetBean? {
             if (content == null) {
                 return null
             }
@@ -58,6 +57,7 @@ data class PlanetBean(private var name : String,
                 split[1].toInt(),
                 split[2].toInt(),
                 split[3].toInt(),
+                split[4]
             )
         }
 
@@ -87,6 +87,6 @@ data class PlanetBean(private var name : String,
      * @Description 返回一个记录此对象信息的字符串
      * @date 2022/5/2 20:55
      */
-    fun getPlanetBeanString() = "${name}-${previewTime}-${time}-${imageID}"
+    fun getPlanetBeanString() = "${name}-${previewTime}-${time}-${imageID}-${remarks}"
 
 }

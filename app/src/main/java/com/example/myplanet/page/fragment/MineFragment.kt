@@ -85,15 +85,15 @@ class MineFragment(title : String = "") : BaseFragment(title) {
             AlertDialog.Builder(this.requireContext()).apply {
                 setTitle("注意")
                 setMessage("是否要退出登录?")
+                setNegativeButton("否"){
+                        _, _ -> //点击"否"的话肯定什么事也没呀awa
+                }
                 setPositiveButton("是"){
                         _, _ ->
                     run {
                         AppManager.finishAll()
                         LoginActivity.startActivity(this.context,true)
                     }
-                }
-                setNegativeButton("否"){
-                        _, _ -> //点击"否"的话肯定什么事也没呀awa
                 }
                 show()
             }
