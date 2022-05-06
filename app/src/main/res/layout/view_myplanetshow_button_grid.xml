@@ -5,21 +5,22 @@
     android:orientation="vertical"
     android:gravity="center">
 
-    <ImageView
-        android:id="@+id/view_iv_myplanetshow_image"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+    <ImageButton
+        android:id="@+id/view_btn_myplanetshow_add"
+        android:src="@drawable/drawable_add"
+        android:scaleType="fitCenter"
         android:background="@drawable/selector_btn"
-        android:src="@drawable/drawable_mars"/>
+        android:layout_width="150dp"
+        android:layout_height="150dp"/>
 
     <TextView
-        android:id="@+id/view_tv_myplanetshow_name"
+        android:id="@+id/view_tv_myplanetshow_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="@drawable/general_background_full"
         android:gravity="center"
-        android:text="planet name"
+        android:text="add planet"
         android:textColor="@color/black"/>
 
 </LinearLayout>

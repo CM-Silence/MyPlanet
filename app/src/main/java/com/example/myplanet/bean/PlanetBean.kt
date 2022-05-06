@@ -10,7 +10,7 @@ import java.io.Serializable
  * @Description 储存星球信息的数据类
  */
 data class PlanetBean(private var name : String,
-                      private var previewTime : Int,
+                      private var previewTime : String,
                       private var time: Int,
                       private var imageID : Int,
                       private var remarks : String = ""): Serializable {
@@ -30,7 +30,7 @@ data class PlanetBean(private var name : String,
     fun setName(name : String){
         this.name = name
     }
-    fun setPreviewTime(time: Int){
+    fun setPreviewTime(time: String){
         this.previewTime = time
     }
     fun setTime(time: Int){
@@ -61,7 +61,7 @@ data class PlanetBean(private var name : String,
             val split = content.split("-")
             return PlanetBean(
                 split[0],
-                split[1].toInt(),
+                split[1],
                 split[2].toInt(),
                 split[3].toInt(),
                 split[4]

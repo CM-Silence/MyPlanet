@@ -21,7 +21,7 @@ import java.lang.Exception
 class ChoosePlanetRvAdapter(private val planetList : List<PlanetBean>,private val listener : OnClickItemListener)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
-    private val holderList = ArrayList<ViewHolder>()
+    private val holderList = ArrayList<InnerPlanetHolder>()
 
     companion object {
         //尾部按钮布局
@@ -30,7 +30,7 @@ class ChoosePlanetRvAdapter(private val planetList : List<PlanetBean>,private va
         private const val ALBUM_DATA_VIEW = 2
     }
 
-    inner class ViewHolder(view : View) : RecyclerView.ViewHolder(view){
+    inner class InnerPlanetHolder(view : View) : RecyclerView.ViewHolder(view){
         lateinit var mPlanetBean : PlanetBean
         val mIvPlanet : ImageView = view.findViewById(R.id.view_iv_myplanetshow_image)
         val mTvName : TextView = view.findViewById(R.id.view_tv_myplanetshow_name)
@@ -47,7 +47,7 @@ class ChoosePlanetRvAdapter(private val planetList : List<PlanetBean>,private va
 
     }
 
-    inner class ButtonViewHolder(view : View) : RecyclerView.ViewHolder(view){
+    inner class InnerButtonHolder(view : View) : RecyclerView.ViewHolder(view){
         val mBtnAdd : ImageView = view.findViewById(R.id.view_btn_myplanetshow_add)
 
         init {
@@ -61,16 +61,16 @@ class ChoosePlanetRvAdapter(private val planetList : List<PlanetBean>,private va
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if(viewType == ALBUM_DATA_VIEW) {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.view_myplanetshow, parent, false)
-            ViewHolder(view)
+            InnerPlanetHolder(view)
         } else{
             val view = LayoutInflater.from(parent.context).inflate(R.layout.view_myplanetshow_button, parent, false)
-            ButtonViewHolder(view)
+            InnerButtonHolder(view)
         }
 
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is ViewHolder) {
+        if (holder is InnerPlanetHolder) {
             val planet = planetList[position]
             holder.mPlanetBean = planet
             holder.mIvPlanet.setImageResource(planet.getImageID())
@@ -81,7 +81,7 @@ class ChoosePlanetRvAdapter(private val planetList : List<PlanetBean>,private va
                 holder.mIvPlanet.setBackgroundResource(R.drawable.general_background)
             }
             holder.mTvName.text = planet.getName()
-        } else if (holder is ButtonViewHolder) {
+        } else if (holder is InnerButtonHolder) {
             holder.mBtnAdd
         }
     }
@@ -94,7 +94,7 @@ class ChoosePlanetRvAdapter(private val planetList : List<PlanetBean>,private va
         return if (position == planetList.size) DEFAULT_ADD_VIEW else ALBUM_DATA_VIEW
     }
 
-    private fun setPlanetChoose(h: ViewHolder){
+    private fun setPlanetChoose(h: InnerPlanetHolder){
         for(holder in holderList){
             holder.isChoose = h == holder
             try {

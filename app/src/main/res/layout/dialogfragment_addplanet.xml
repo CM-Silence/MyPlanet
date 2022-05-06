@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="600dp"
+    android:layout_height="680dp"
     android:background="@drawable/general_background">
 
     <TextView
@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="新增星球"
+        android:text="新增/更改星球"
         android:textColor="@color/black"
         android:textSize="28sp"
         android:textStyle="bold"
@@ -87,6 +87,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout7" />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout8"
         android:layout_width="380dp"
         android:layout_height="160dp"
         android:layout_marginTop="20dp"
@@ -111,5 +112,17 @@
             android:textColor="@color/black"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/dialog_btn_addplanet_add"
+        style="@style/style_button"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="创建"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout8" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
