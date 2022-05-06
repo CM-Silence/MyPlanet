@@ -29,4 +29,14 @@ object TimeUtil {
     fun toTime(minute : Int, second : Int) : String{
         return "${minute.toTimeString()}:${second.toTimeString()}"
     }
+
+    /**
+     * @return 时间,格式为_min_s
+     * @Param minute 分
+     * @param second 秒
+     * @date 2022/5/2 23:19
+     */
+    fun toEnglishTime(minute : Int, second : Int) : String{
+        return "${minute}min ${second}s"
+    }
 }

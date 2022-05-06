@@ -1,5 +1,6 @@
 package com.example.myplanet.bean
 
+import com.example.myplanet.utils.TimeUtil
 import java.io.Serializable
 
 /**
@@ -19,6 +20,12 @@ data class PlanetBean(private var name : String,
     fun getTime() = time
     fun getImageID() = imageID
     fun getRemarks() = remarks
+
+    fun getTimeString() : String{
+        val minute : Int = time / 60
+        val second : Int = time % 60
+        return TimeUtil.toEnglishTime(minute,second)
+    }
 
     fun setName(name : String){
         this.name = name

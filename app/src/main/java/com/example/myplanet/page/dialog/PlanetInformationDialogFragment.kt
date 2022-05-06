@@ -100,7 +100,7 @@ open class PlanetInformationDialogFragment(private var mActivity: FragmentActivi
         mIvPlanet.setImageResource(planetBean.getImageID())
         mTvName.text = "名称:${planetBean.getName()}"
         mTvPreviewTime.text = "点亮日期:${planetBean.getPreviewTime()}"
-        mTvTime.text = "时长:${planetBean.getTime()}"
+        mTvTime.text = "时长:${planetBean.getTimeString()}"
         mTvRemarks.text = "备注:${planetBean.getRemarks()}"
     }
 
