@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-import android.widget.ImageView
 import android.widget.TextView
 import com.example.myplanet.R
 import com.example.myplanet.base.BaseFragment
@@ -66,7 +65,7 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
 
                 override fun onOver() {
                     isCountDown = false
-                    LoginModel.addNonPasswordUserBean(userBean)
+                    saveData()
                 }
             })
         }
@@ -135,6 +134,7 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
                         mBtnPlanet.setImageResource(planet.getImageID())
                         mTvName.text = planet.getName()
                         userBean.setFirstPlanet(planet)
+                        saveData()
                     }
                 }).show()
             }
@@ -154,7 +154,7 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
     }
 
     /**
-     * @Description 时间改变时更改mTvTime和mMyCircle的方法
+     * @Description 时间改变时更改mTvTime和mMyTimer的方法
      * @date 2022/5/2 0:37
      */
     @SuppressLint("SetTextI18n")
@@ -175,12 +175,23 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
     }
 
     /**
+     * @Description 保存用户数据的方法
+     * @date 2022/5/6 11:52
+     */
+    private fun saveData(){
+        LoginModel.addNonPasswordUserBean(userBean)
+        if(userBean.isRemember()){
+            LoginModel.setNonPasswordRememberUser(userBean)
+        }
+    }
+
+    /**
      * @Description 退出后保存用户数据
      * @date 2022/5/2 21:29
      */
     override fun onStop() {
         super.onStop()
-        LoginModel.addNonPasswordUserBean(userBean)
+        saveData()
     }
 
     override fun onDestroy() {
