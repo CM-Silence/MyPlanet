@@ -86,7 +86,11 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
         override fun handleMessage(msg: Message) {
             when (msg.what) {
                 1 -> timeChange()
-                2 -> planetMoveAnimator.cancel()
+                2 -> {
+                    planetMoveAnimator.cancel()
+                    ObjectAnimator.ofFloat(mBtnPlanet,"translationY",mBtnPlanet.translationY,0f)
+                        .setDuration(1000).start()
+                }
             }
         }
     }
