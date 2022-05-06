@@ -25,7 +25,7 @@ class MyProcessBar(context: Context, attributeSet: AttributeSet) : RelativeLayou
     }
 
     companion object{
-        private const val MOVE = 50f
+        private const val MOVE = 60f
     }
 
     private fun initView(){
