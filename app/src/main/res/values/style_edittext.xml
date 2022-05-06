@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="style_edittext" >
+    <style name="style_edittext_noline" >
         <item name="android:textColor">#FFC107</item>
         <item name="android:textSize">18sp</item>
         <!-- 底部线 默认颜色 -->

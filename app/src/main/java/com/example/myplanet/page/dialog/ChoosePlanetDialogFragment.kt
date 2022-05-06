@@ -13,12 +13,10 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.annotation.Nullable
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myplanet.R
-import com.example.myplanet.base.MyApplication
 import com.example.myplanet.bean.PlanetBean
 import com.example.myplanet.page.adapter.ChoosePlanetRvAdapter
 import com.example.myplanet.utils.ToastUtil

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="style_edittext" >
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="background">@drawable/general_background</item>
+        <!-- 底部线 默认颜色 -->
+        <item name="colorControlNormal">#00606060</item>
+        <!-- 底部线 EditText激活时颜色 -->
+        <item name="colorControlActivated">#00FFC107</item>
+    </style>
+</resources>
