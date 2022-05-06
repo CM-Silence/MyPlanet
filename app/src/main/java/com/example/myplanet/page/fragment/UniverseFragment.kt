@@ -95,9 +95,9 @@ class UniverseFragment(title : String = "") : BaseFragment(title) {
      * @date 2022/5/3 9:56
      */
     private fun changeFragment(fragment : BaseFragment){
-        val fragmentManager = this.activity?.supportFragmentManager
-        val transaction = fragmentManager?.beginTransaction()
-        transaction?.replace(R.id.fragment_framelayout_universe, fragment)
-        transaction?.commit()
+        val fragmentManager = this.childFragmentManager //不要用activity的
+        val transaction = fragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_framelayout_universe, fragment)
+        transaction.commit()
     }
 }
