@@ -6,7 +6,6 @@ import android.content.Context
 import android.graphics.Canvas
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.widget.ImageView
 import android.widget.RelativeLayout
 import com.example.myplanet.R
 
@@ -17,7 +16,6 @@ import com.example.myplanet.R
  * @Description 计时器
  */
 class MyTimer(context: Context, attributeSet: AttributeSet) : RelativeLayout(context, attributeSet){
-    private var mIvMoon : ImageView
     private var process = 0f //倒计时进度(到0代表倒计时结束)
 
     @Volatile
@@ -25,7 +23,6 @@ class MyTimer(context: Context, attributeSet: AttributeSet) : RelativeLayout(con
 
     init {
         LayoutInflater.from(context).inflate(R.layout.view_mytimer, this)
-        mIvMoon = findViewById(R.id.view_iv_moon)
     }
 
     override fun onDraw(canvas: Canvas?) {

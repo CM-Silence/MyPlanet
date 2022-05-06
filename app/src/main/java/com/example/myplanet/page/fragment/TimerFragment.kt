@@ -22,7 +22,6 @@ import com.example.myplanet.page.dialog.ChoosePlanetDialogFragment
 import com.example.myplanet.page.dialog.TimerDialog
 import com.example.myplanet.service.TimerService
 import com.example.myplanet.utils.TimeUtil
-import com.example.myplanet.view.MyCircle
 import com.example.myplanet.view.MyTimer
 
 /**
@@ -36,8 +35,6 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
     private lateinit var mTvName: TextView
     private lateinit var mBtnPlanet: ImageButton
     private lateinit var mMyTimer: MyTimer
-    private lateinit var mMyCircle: MyCircle
-    private lateinit var mIvMoon: ImageView
 
     private lateinit var userBean: UserBean
 
@@ -116,8 +113,6 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
         mTvName = view.findViewById(R.id.fragment_timer_tv_planetname)
         mBtnPlanet = view.findViewById(R.id.fragment_timer_btn_planet)
         mMyTimer = view.findViewById(R.id.fragment_timer_myTimer)
-        mMyCircle = view.findViewById(R.id.view_mycircle_circle)
-        mIvMoon = view.findViewById(R.id.view_iv_moon)
         mBtnPlanet.bringToFront()
 
         mTvName.text = userBean.getPlanetList()[0].getName()
@@ -145,7 +140,7 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
             }
         }
 
-        mMyCircle.setOnLongClickListener {
+        mMyTimer.setOnLongClickListener {
             TimerDialog(this.requireContext() ,minute ,second ,isCountDown ,object : TimerDialog.OnCloseListener{
                 override fun onClose(minute : Int, second : Int) {
                     timeChange()
