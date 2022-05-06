@@ -1,5 +1,7 @@
 package com.example.myplanet.page.fragment
 
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Context
@@ -21,6 +23,7 @@ import com.example.myplanet.page.dialog.ChoosePlanetDialogFragment
 import com.example.myplanet.page.dialog.TimerDialog
 import com.example.myplanet.service.TimerService
 import com.example.myplanet.utils.TimeUtil
+import com.example.myplanet.utils.ToastUtil
 import com.example.myplanet.view.MyTimer
 
 /**
@@ -40,6 +43,8 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
     private lateinit var timeBinder: TimerService.TimerBinder
 
     private lateinit var timerService : TimerService
+
+    private lateinit var planetMoveAnimator : ObjectAnimator
 
 
     /**
@@ -65,6 +70,9 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
 
                 override fun onOver() {
                     isCountDown = false
+                    val msg = Message.obtain()
+                    msg.what = 2
+                    mHandler.sendMessage(msg)
                     saveData()
                 }
             })
@@ -78,6 +86,7 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
         override fun handleMessage(msg: Message) {
             when (msg.what) {
                 1 -> timeChange()
+                2 -> planetMoveAnimator.cancel()
             }
         }
     }
@@ -102,7 +111,9 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
         initData()
         initView(view)
         initEvent()
+        initAnimator()
 
+        //绑定TimeService服务
         val intent = Intent(this.context, TimerService::class.java)
         this.activity?.bindService(intent, connection, Context.BIND_AUTO_CREATE)
     }
@@ -125,6 +136,17 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
         }
     }
 
+    /**
+     * @Description 用在星球上的无限循环动画(当然,在一定的条件下会停止)
+     * @date 2022/5/6 12:14
+     */
+    private fun initAnimator(){
+        planetMoveAnimator = ObjectAnimator.ofFloat(mBtnPlanet, "translationY", 0f,20f,0f,-20f,0f)
+            .setDuration(2000)
+        planetMoveAnimator.repeatMode = ValueAnimator.RESTART
+        planetMoveAnimator.repeatCount = ValueAnimator.INFINITE
+    }
+
     @SuppressLint("ClickableViewAccessibility")
     private fun initEvent() {
         mBtnPlanet.setOnClickListener {
@@ -137,6 +159,9 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
                         saveData()
                     }
                 }).show()
+            }
+            else{
+                ToastUtil.show("计时状态下无法切换星球哦!")
             }
         }
 
@@ -171,6 +196,7 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
     private fun countDown(){
         mMyTimer.startCountDown(minute,second)
         timerService.startCountDown(minute,second)
+        planetMoveAnimator.start()
         isCountDown = true
     }
 
@@ -196,6 +222,7 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
 
     override fun onDestroy() {
         super.onDestroy()
+        //解绑服务
         this.activity?.unbindService(connection)
     }
 

@@ -17,6 +17,8 @@ import com.example.myplanet.R
  */
 class MyTimer(context: Context, attributeSet: AttributeSet) : RelativeLayout(context, attributeSet){
     private var process = 0f //倒计时进度(到0代表倒计时结束)
+    private var timeChangeAnimator : ObjectAnimator? = null//控制计时器转动的动画
+    private var startCountDownAnimator : ObjectAnimator? = null//开始计时时的动画
 
     @Volatile
     private var changeSecond = 0 //由于1/7200度太小,导致其转不动,所以等待数秒后再进行一次转动
@@ -45,8 +47,9 @@ class MyTimer(context: Context, attributeSet: AttributeSet) : RelativeLayout(con
         process = (second + 60 * minute) / 7200f
         changeSecond++
         if (changeSecond >= 20) {
-            ObjectAnimator.ofFloat(this, "rotation", this.rotation, this.rotation - 1f)
-                .setDuration(19000).start()
+            timeChangeAnimator = ObjectAnimator.ofFloat(this, "rotation", this.rotation, this.rotation - 1f)
+                .setDuration(19000)
+            timeChangeAnimator?.start()
             changeSecond = 0
         }
     }
@@ -59,9 +62,10 @@ class MyTimer(context: Context, attributeSet: AttributeSet) : RelativeLayout(con
      */
     fun startCountDown(minute : Int, second : Int){
         process = (second + 60 * minute) / 7200f
-        this.clearAnimation()
-        ObjectAnimator.ofFloat(this, "rotation", this.rotation, process * 360)
-            .setDuration(1000).start()
+        timeChangeAnimator?.cancel() //取消掉timeChangeAnimator,以免跟startCountDownAnimator冲突
+        startCountDownAnimator = ObjectAnimator.ofFloat(this, "rotation", this.rotation, process * 360)
+            .setDuration(1000)
+        startCountDownAnimator?.start()
         changeSecond = 0
     }
 }
