@@ -17,7 +17,8 @@
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout2"
         app:layout_constraintHorizontal_bias="0.522"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText"/>
 
     <Button
         android:id="@+id/activity_btn_login_login"
@@ -29,7 +30,8 @@
         app:layout_constraintBottom_toTopOf="@+id/activity_btn_login_register"
         app:layout_constraintEnd_toEndOf="@+id/activity_cb_login_autologin"
         app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="@+id/activity_cb_login_remember" />
+        app:layout_constraintStart_toStartOf="@+id/activity_cb_login_remember"
+        tools:ignore="HardcodedText"/>
 
     <Button
         android:id="@+id/activity_btn_login_register"
@@ -41,7 +43,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/activity_btn_login_login"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/activity_btn_login_login" />
+        app:layout_constraintStart_toStartOf="@+id/activity_btn_login_login"
+        tools:ignore="HardcodedText"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout2"
@@ -63,7 +66,8 @@
             android:inputType="number"
             android:maxLines="1"
             android:layout_width="300dp"
-            android:layout_height="50dp" />
+            android:layout_height="50dp"
+            tools:ignore="HardcodedText"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -87,7 +91,8 @@
             android:lines="1"
             android:maxLines="1"
             android:layout_width="300dp"
-            android:layout_height="50dp" />
+            android:layout_height="50dp"
+            tools:ignore="HardcodedText"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -101,7 +106,8 @@
         app:layout_constraintBottom_toTopOf="@+id/activity_btn_login_login"
         app:layout_constraintEnd_toStartOf="@+id/activity_cb_login_autologin"
         app:layout_constraintHorizontal_bias="0.322"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout" />
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout"
+        tools:ignore="HardcodedText"/>
 
     <CheckBox
         android:id="@+id/activity_cb_login_autologin"
@@ -112,7 +118,8 @@
         android:text="自动登录"
         android:theme="@style/style_checkbox"
         app:layout_constraintBottom_toTopOf="@+id/activity_btn_login_login"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLayout" />
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
+        tools:ignore="HardcodedText"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -38,6 +38,7 @@ open class ChoosePlanetDialogFragment(private var mActivity: FragmentActivity,
     private lateinit var mTvTime : TextView
     private lateinit var mBtnChange : Button
 
+    private lateinit var adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private var mPlanetBean : PlanetBean? = null
 
@@ -116,13 +117,31 @@ open class ChoosePlanetDialogFragment(private var mActivity: FragmentActivity,
         val layoutManager = LinearLayoutManager(this.requireContext())
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
         mRvPlanet.layoutManager = layoutManager
-        val adapter = ChoosePlanetRvAdapter(planetList,object : ChoosePlanetRvAdapter.OnClickItemListener{
+        adapter = ChoosePlanetRvAdapter(planetList,object : ChoosePlanetRvAdapter.OnClickItemListener{
             @SuppressLint("SetTextI18n")
             override fun onClickItem(planet: PlanetBean) {
                 mTvName.text = "名称:${planet.getName()}"
                 mTvPreview.text = "预计点亮时长:${planet.getPreviewTime()}"
                 mTvTime.text = "已专注:${planet.getTime() / 60}min"
                 mPlanetBean = planet
+            }
+            override fun onClickAddButton() {
+                AddPlanetDialogFragment(planet = null,requireActivity(),object : AddPlanetDialogFragment.OnCloseListener{
+                    @SuppressLint("NotifyDataSetChanged")
+                    override fun onAddPlanet(planet: PlanetBean) {
+                        planetList.add(planet)
+                        adapter.notifyItemChanged(0)
+                    }
+
+                    override fun onChangePlanet(
+                        name: String,
+                        preViewTime: String,
+                        remarks: String
+                    ) {
+                        TODO("Not yet implemented")
+                    }
+
+                }).show()
             }
         })
         mRvPlanet.adapter = adapter
@@ -143,6 +162,7 @@ open class ChoosePlanetDialogFragment(private var mActivity: FragmentActivity,
 
     interface OnCloseListener {
         fun onClose(planet : PlanetBean)
+        fun onAddPlanet()
     }
 
 }

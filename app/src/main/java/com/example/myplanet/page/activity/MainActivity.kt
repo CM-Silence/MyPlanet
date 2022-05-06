@@ -92,12 +92,12 @@ class MainActivity : BaseActivity() {
     private fun isNew(){
         if(mUserBean.isNew()){
             mUserBean.setNew(false)
-            mUserBean.addPlanet(PlanetBean("earth",0,0,R.drawable.drawable_earth))
-            mUserBean.addPlanet(PlanetBean("mars",0,0,R.drawable.drawable_mars))
-            mUserBean.addPlanet(PlanetBean("neptune",0,0,R.drawable.drawable_neptune))
-            mUserBean.addPlanet(PlanetBean("saturn",0,0,R.drawable.drawable_saturn))
-            mUserBean.addPlanet(PlanetBean("uranus",0,0,R.drawable.drawable_uranus))
-            mUserBean.addPlanet(PlanetBean("venus",0,0,R.drawable.drawable_venus))
+            mUserBean.addPlanet(PlanetBean("earth","",0,R.drawable.drawable_earth))
+            mUserBean.addPlanet(PlanetBean("mars","",0,R.drawable.drawable_mars))
+            mUserBean.addPlanet(PlanetBean("neptune","",0,R.drawable.drawable_neptune))
+            mUserBean.addPlanet(PlanetBean("saturn","",0,R.drawable.drawable_saturn))
+            mUserBean.addPlanet(PlanetBean("uranus","",0,R.drawable.drawable_uranus))
+            mUserBean.addPlanet(PlanetBean("venus","",0,R.drawable.drawable_venus))
             ToastUtil.show("欢迎新用户!您获得了6颗星球作为赠礼!")
             CompleteInformationDialog(this,mUserBean.getName(),mUserBean.getSignature(),
                 object : CompleteInformationDialog.OnCloseListener{

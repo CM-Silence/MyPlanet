@@ -97,7 +97,7 @@ open class AddPlanetDialogFragment(private val planet: PlanetBean? = null,
         @Nullable container: ViewGroup?,
         @Nullable savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.dialogfragment_chooseplanet, container, false)
+        return inflater.inflate(R.layout.dialogfragment_addplanet, container, false)
     }
 
     override fun onCreateDialog(@Nullable savedInstanceState: Bundle?): Dialog {

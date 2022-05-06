@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myplanet.R
 import com.example.myplanet.base.MyApplication
 import com.example.myplanet.bean.PlanetBean
+import com.example.myplanet.page.dialog.AddPlanetDialogFragment
 import java.lang.Exception
 
 /**
@@ -52,8 +53,7 @@ class ChoosePlanetRvAdapter(private val planetList : List<PlanetBean>,private va
 
         init {
             mBtnAdd.setOnClickListener {
-                Toast.makeText(MyApplication.getAppContext(), "对不起,我实在是肝不动了qaq", Toast.LENGTH_SHORT).show()
-
+                listener.onClickAddButton()
             }
         }
     }
@@ -111,6 +111,7 @@ class ChoosePlanetRvAdapter(private val planetList : List<PlanetBean>,private va
 
     interface OnClickItemListener {
         fun onClickItem(planet : PlanetBean)
+        fun onClickAddButton()
     }
 
 }
