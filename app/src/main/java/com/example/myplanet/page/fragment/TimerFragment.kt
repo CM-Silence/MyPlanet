@@ -163,8 +163,8 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
                         saveData()
                     }
 
-                    override fun onAddPlanet() {
-                        TODO("Not yet implemented")
+                    override fun onAddPlanet(planet: PlanetBean) {
+                        userBean.addPlanet(planet)
                     }
                 }).show()
             }

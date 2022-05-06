@@ -6,7 +6,6 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.*
 import android.widget.Button
-import android.widget.TextView
 import androidx.annotation.Nullable
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -35,7 +34,7 @@ open class AddPlanetDialogFragment(private val planet: PlanetBean? = null,
 
     private lateinit var mRvPlanet : RecyclerView
     private lateinit var mTieName : TextInputEditText
-    private lateinit var mTvPreview : TextView
+    private lateinit var mBtnPreview : Button
     private lateinit var mTieRemark : TextInputEditText
     private lateinit var mBtnAdd : Button
 
@@ -109,21 +108,37 @@ open class AddPlanetDialogFragment(private val planet: PlanetBean? = null,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initData()
         initView(view)
         initRv()
         initClick()
     }
 
+    /**
+     * @Description 添加星球图片数据
+     * @date 2022/5/6 21:46
+     */
+    private fun initData(){
+        srcList.run{
+            add(R.drawable.drawable_earth)
+            add(R.drawable.drawable_mars)
+            add(R.drawable.drawable_neptune)
+            add(R.drawable.drawable_saturn)
+            add(R.drawable.drawable_uranus)
+            add(R.drawable.drawable_venus)
+        }
+    }
+
     private fun initView(view: View) {
         mRvPlanet = view.findViewById(R.id.dialog_rv_addplanet_planet)
         mTieName = view.findViewById(R.id.dialog_tie_addplanet_name)
-        mTvPreview = view.findViewById(R.id.dialog_tv_addplanet_date)
+        mBtnPreview = view.findViewById(R.id.dialog_btn_addplanet_date)
         mTieRemark = view.findViewById(R.id.dialog_tie_addplanet_remarks)
         mBtnAdd = view.findViewById(R.id.dialog_btn_addplanet_add)
 
         if(planet != null){
             mTieName.setText(planet.getName())
-            mTvPreview.text = planet.getPreviewTime()
+            mBtnPreview.text = planet.getPreviewTime()
             mTieRemark.setText(planet.getRemarks())
         }
     }
@@ -145,6 +160,9 @@ open class AddPlanetDialogFragment(private val planet: PlanetBean? = null,
     }
 
     private fun initClick() {
+        mBtnPreview.setOnClickListener {
+            //选择日期
+        }
         mBtnAdd.setOnClickListener {
             AlertDialog.Builder(this.requireContext()).apply {
                 setTitle("提醒")
