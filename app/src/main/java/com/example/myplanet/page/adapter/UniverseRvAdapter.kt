@@ -37,7 +37,7 @@ class UniverseRvAdapter(private val planetList : List<PlanetBean>, private val l
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UniverseRvAdapter.InnerHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.view_myplanetshow, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.view_myplanetshow_grid, parent, false)
         return InnerHolder(view)
     }
 
