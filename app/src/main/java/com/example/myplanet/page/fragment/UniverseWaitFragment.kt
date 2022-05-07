@@ -53,7 +53,19 @@ class UniverseWaitFragment(private val planetList : ArrayList<PlanetBean>) : Bas
         adapter = UniverseRvAdapter(planetList,object : UniverseRvAdapter.OnClickItemListener{
             @SuppressLint("SetTextI18n")
             override fun onClickItem(planet: PlanetBean) {
-                PlanetInformationDialogFragment(requireActivity(),planet).show()
+                PlanetInformationDialogFragment(requireActivity(),planet,object : PlanetInformationDialogFragment.OnCloseListener{
+                    override fun onChange(planet : PlanetBean) {
+                        val position = planetList.indexOf(planet)
+                        adapter.notifyItemChanged(position)
+                    }
+
+                    override fun onDelete(planet: PlanetBean) {
+                        val position = planetList.indexOf(planet)
+                        planetList.remove(planet)
+                        adapter.notifyItemRemoved(position)
+                    }
+                }
+                ).show()
             }
 
             override fun onAddButtonClick() {
@@ -61,12 +73,13 @@ class UniverseWaitFragment(private val planetList : ArrayList<PlanetBean>) : Bas
                     @SuppressLint("NotifyDataSetChanged")
                     override fun onAddPlanet(planet: PlanetBean) {
                         planetList.add(planet)
-                        adapter.notifyItemChanged(0)
+                        adapter.notifyItemInserted(planetList.size)
                     }
                     override fun onChangePlanet(
                         name: String,
                         preViewTime: String,
-                        remarks: String
+                        remarks: String,
+                        src : Int
                     ) {
                         //这里不需要
                     }

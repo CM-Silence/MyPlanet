@@ -15,9 +15,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myplanet.R
-import com.example.myplanet.base.AppManager
 import com.example.myplanet.bean.PlanetBean
-import com.example.myplanet.page.activity.LoginActivity
 import com.example.myplanet.page.adapter.AddPlanetRvAdapter
 import com.example.myplanet.utils.TimeUtil
 import com.example.myplanet.utils.ToastUtil
@@ -49,6 +47,7 @@ open class AddPlanetDialogFragment(private val planet: PlanetBean? = null,
     private var planetPreViewTime : String = ""
     private var planetSrc : Int? = null
     private var isChooseSrc = false
+    private var isChooseDate = false
 
     init {
         //获取当前时间
@@ -133,6 +132,7 @@ open class AddPlanetDialogFragment(private val planet: PlanetBean? = null,
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initView(view: View) {
         mRvPlanet = view.findViewById(R.id.dialog_rv_addplanet_planet)
         mTieName = view.findViewById(R.id.dialog_tie_addplanet_name)
@@ -142,8 +142,12 @@ open class AddPlanetDialogFragment(private val planet: PlanetBean? = null,
 
         if(planet != null){
             mTieName.setText(planet.getName())
-            mBtnPreview.text = planet.getPreviewTime()
+            mBtnPreview.text = "   预计点亮日期: ${planet.getPreviewTime()}"
             mTieRemark.setText(planet.getRemarks())
+            planetPreViewTime = planet.getPreviewTime()
+            planetSrc = planet.getImageID()
+            isChooseDate = true
+            isChooseSrc = true
         }
     }
 
@@ -176,6 +180,7 @@ open class AddPlanetDialogFragment(private val planet: PlanetBean? = null,
             mDatePicker.maxDate = TimeUtil.getTimeMillisToDay(mYear + 10,mMonth-1,mDay)
             builder.setView(view)
                 .setTitle("选择预计点亮日期")
+                .setCancelable(false)
                 .setNegativeButton("否"){
                     _, _ -> //点击"否"的话肯定什么事也没呀awa
             }
@@ -187,6 +192,7 @@ open class AddPlanetDialogFragment(private val planet: PlanetBean? = null,
                     val day = mDatePicker.dayOfMonth
                     planetPreViewTime = "${year}-${month}-${day}"
                     mBtnPreview.text = "   预计点亮日期: ${year}年${month}月${day}日"
+                    isChooseDate = true
                 }
             }
             builder.create().show()
@@ -221,7 +227,8 @@ open class AddPlanetDialogFragment(private val planet: PlanetBean? = null,
                 listener.onChangePlanet(
                     mPlanetBean.getName(),
                     mPlanetBean.getPreviewTime(),
-                    mPlanetBean.getRemarks()
+                    mPlanetBean.getRemarks(),
+                    mPlanetBean.getImageID()
                 )
             }
             dismiss()
@@ -232,7 +239,7 @@ open class AddPlanetDialogFragment(private val planet: PlanetBean? = null,
     }
 
     private fun isCompete() : Boolean{
-        if(!mTieName.text.isNullOrEmpty() && !mTieRemark.text.isNullOrEmpty() && isChooseSrc){
+        if(!mTieName.text.isNullOrEmpty() && !mTieRemark.text.isNullOrEmpty() && isChooseSrc && isChooseDate){
             mPlanetBean = PlanetBean(mTieName.text.toString(),planetPreViewTime,0,planetSrc!!,mTieRemark.text.toString())
             return true
         }
@@ -241,7 +248,7 @@ open class AddPlanetDialogFragment(private val planet: PlanetBean? = null,
 
     interface OnCloseListener {
         fun onAddPlanet(planet: PlanetBean)
-        fun onChangePlanet(name : String,preViewTime : String,remarks : String)
+        fun onChangePlanet(name : String,preViewTime : String,remarks : String,src : Int)
     }
 }
 

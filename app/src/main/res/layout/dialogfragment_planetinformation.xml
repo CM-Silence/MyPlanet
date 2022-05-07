@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="500dp"
+    android:layout_height="580dp"
     android:background="@drawable/general_background">
 
     <ImageView
@@ -15,7 +15,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="星球图片"
+        tools:ignore="HardcodedText"/>
 
     <TextView
         android:id="@+id/dialog_tv_planetinformation_previewtime"
@@ -28,7 +30,8 @@
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_tv_planetinformation_time" />
+        app:layout_constraintTop_toBottomOf="@+id/dialog_tv_planetinformation_time"
+        tools:ignore="HardcodedText"/>
 
     <TextView
         android:id="@+id/dialog_tv_planetinformation_remarks"
@@ -45,7 +48,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialog_tv_planetinformation_previewtime"
-        app:layout_constraintVertical_bias="0.083" />
+        app:layout_constraintVertical_bias="0.083"
+        tools:ignore="HardcodedText"/>
 
     <TextView
         android:id="@+id/dialog_tv_planetinformation_time"
@@ -58,7 +62,8 @@
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_tv_planetinformation_name" />
+        app:layout_constraintTop_toBottomOf="@+id/dialog_tv_planetinformation_name"
+        tools:ignore="HardcodedText"/>
 
     <TextView
         android:id="@+id/dialog_tv_planetinformation_name"
@@ -71,6 +76,29 @@
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_iv_planetinformation_planet" />
+        app:layout_constraintTop_toBottomOf="@+id/dialog_iv_planetinformation_planet"
+        tools:ignore="HardcodedText"/>
+
+    <Button
+        android:id="@+id/dialog_btn_planetinformation_change"
+        style="@style/style_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="更改"
+        app:layout_constraintEnd_toEndOf="@+id/dialog_tv_planetinformation_remarks"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_tv_planetinformation_remarks"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/dialog_btn_planetinformation_delete"
+        style="@style/style_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="删除"
+        app:layout_constraintStart_toStartOf="@+id/dialog_tv_planetinformation_remarks"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_tv_planetinformation_remarks"
+        tools:ignore="HardcodedText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

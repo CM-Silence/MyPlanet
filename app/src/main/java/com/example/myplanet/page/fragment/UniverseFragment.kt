@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
+import androidx.fragment.app.FragmentManager
 import com.example.myplanet.R
 import com.example.myplanet.base.BaseFragment
-import com.example.myplanet.bean.PlanetBean
 import com.example.myplanet.bean.UserBean
 import com.example.myplanet.page.activity.MainActivity
 
@@ -25,6 +25,10 @@ class UniverseFragment(title : String = "") : BaseFragment(title) {
 
     private var mMainFragment: UniverseMainFragment? = null
     private var mWaitFragment: UniverseWaitFragment? = null
+
+    private var mFragmentManager: FragmentManager? = null
+
+    private var currentFragment: BaseFragment? = null //用于记录当前显示的界面
 
     private lateinit var userBean: UserBean
 
@@ -95,9 +99,20 @@ class UniverseFragment(title : String = "") : BaseFragment(title) {
      * @date 2022/5/3 9:56
      */
     private fun changeFragment(fragment : BaseFragment){
-        val fragmentManager = this.childFragmentManager //不要用activity的
-        val transaction = fragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_framelayout_universe, fragment)
+        if(mFragmentManager == null) {
+            mFragmentManager = this.childFragmentManager //不要用activity的
+        }
+        val transaction = mFragmentManager!!.beginTransaction()
+        if(fragment.isAdded){
+            transaction.show(fragment)
+        }
+        else{
+            transaction.add(R.id.fragment_framelayout_universe, fragment)
+        }
+        if (currentFragment != null){
+            transaction.hide(currentFragment!!)
+        }
+        currentFragment = fragment
         transaction.commit()
     }
 }

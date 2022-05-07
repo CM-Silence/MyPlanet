@@ -131,14 +131,15 @@ open class ChoosePlanetDialogFragment(private var mActivity: FragmentActivity,
                     @SuppressLint("NotifyDataSetChanged")
                     override fun onAddPlanet(planet: PlanetBean) {
                         planetList.add(planet)
-                        adapter.notifyItemChanged(0)
+                        adapter.notifyItemInserted(planetList.size)
                         listener.onAddPlanet()
                     }
 
                     override fun onChangePlanet(
                         name: String,
                         preViewTime: String,
-                        remarks: String
+                        remarks: String,
+                        src: Int
                     ) {
                         //这里不需要
                     }
