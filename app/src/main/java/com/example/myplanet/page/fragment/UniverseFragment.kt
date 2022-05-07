@@ -68,7 +68,7 @@ class UniverseFragment(title : String = "") : BaseFragment(title) {
             mMainFragment = UniverseMainFragment()
         }
         if(mWaitFragment == null){
-            mWaitFragment = UniverseWaitFragment(userBean.getPlanetList())
+            mWaitFragment = UniverseWaitFragment(userBean)
         }
         changeFragment(mMainFragment!!)
     }
@@ -76,7 +76,7 @@ class UniverseFragment(title : String = "") : BaseFragment(title) {
     private fun initClick(){
         mBtnWait.setOnClickListener {
             if(mWaitFragment == null){
-                mWaitFragment = UniverseWaitFragment(userBean.getPlanetList())
+                mWaitFragment = UniverseWaitFragment(userBean)
             }
             changeFragment(mWaitFragment!!)
             mBtnWait.setBackgroundResource(R.drawable.general_background_press)

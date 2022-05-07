@@ -10,6 +10,7 @@ import androidx.core.app.NotificationCompat
 import com.example.myplanet.R
 import com.example.myplanet.page.activity.MainActivity
 import com.example.myplanet.utils.TimeUtil
+import com.example.myplanet.page.activity.MainActivity.Companion.isCountDown
 
 /**
  * @ClassName TimerService
@@ -49,8 +50,6 @@ class TimerService : Service() {
     }
 
 
-    @Volatile
-    private var isCountDown = false //是否在倒计时
     @Volatile
     private var minute = 0
     @Volatile

@@ -6,16 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.myplanet.R
 import com.example.myplanet.base.BaseFragment
 import com.example.myplanet.bean.PlanetBean
-import com.example.myplanet.page.adapter.ChoosePlanetRvAdapter
+import com.example.myplanet.bean.UserBean
+import com.example.myplanet.page.activity.MainActivity
 import com.example.myplanet.page.adapter.UniverseRvAdapter
 import com.example.myplanet.page.dialog.AddPlanetDialogFragment
-import com.example.myplanet.page.dialog.ChoosePlanetDialogFragment
 import com.example.myplanet.page.dialog.PlanetInformationDialogFragment
 
 /**
@@ -24,10 +22,11 @@ import com.example.myplanet.page.dialog.PlanetInformationDialogFragment
  * @date 2022/5/3
  * @Description universe界面中的一个界面(套娃呢awa)
  */
-class UniverseWaitFragment(private val planetList : ArrayList<PlanetBean>) : BaseFragment() {
+class UniverseWaitFragment(private val userBean: UserBean) : BaseFragment() {
     private lateinit var mRvPlanet : RecyclerView
 
     private lateinit var adapter : UniverseRvAdapter
+    private lateinit var planetList : ArrayList<PlanetBean>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,10 +38,14 @@ class UniverseWaitFragment(private val planetList : ArrayList<PlanetBean>) : Bas
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initData()
         initView(view)
         initRv()
     }
 
+    private fun initData(){
+        planetList = userBean.getPlanetList()
+    }
     private fun initView(view : View){
         mRvPlanet = view.findViewById(R.id.fragment_rv_universe_wait)
     }
@@ -53,7 +56,7 @@ class UniverseWaitFragment(private val planetList : ArrayList<PlanetBean>) : Bas
         adapter = UniverseRvAdapter(planetList,object : UniverseRvAdapter.OnClickItemListener{
             @SuppressLint("SetTextI18n")
             override fun onClickItem(planet: PlanetBean) {
-                PlanetInformationDialogFragment(requireActivity(),planet,object : PlanetInformationDialogFragment.OnCloseListener{
+                PlanetInformationDialogFragment(requireActivity(),planet,!(planetList.indexOf(planet) == 0 && MainActivity.isCountDown),object : PlanetInformationDialogFragment.OnCloseListener{
                     override fun onChange(planet : PlanetBean) {
                         val position = planetList.indexOf(planet)
                         adapter.notifyItemChanged(position)

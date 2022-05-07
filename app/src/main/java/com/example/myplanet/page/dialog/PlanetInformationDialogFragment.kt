@@ -28,6 +28,7 @@ import com.example.myplanet.utils.ToastUtil
  */
 open class PlanetInformationDialogFragment(private var mActivity: FragmentActivity,
                                       private val planetBean: PlanetBean,
+                                      private val isChangeable : Boolean,
                                       private val listener: OnCloseListener) : DialogFragment(){
 
     private lateinit var mIvPlanet : ImageView
@@ -109,6 +110,11 @@ open class PlanetInformationDialogFragment(private var mActivity: FragmentActivi
         mBtnChange = view.findViewById(R.id.dialog_btn_planetinformation_change)
         mBtnDelete = view.findViewById(R.id.dialog_btn_planetinformation_delete)
         upDateView()
+
+        if(!isChangeable){
+            mBtnDelete.setBackgroundResource(R.drawable.general_background_full)
+            mBtnChange.setBackgroundResource(R.drawable.general_background_full)
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -123,48 +129,59 @@ open class PlanetInformationDialogFragment(private var mActivity: FragmentActivi
 
     private fun initClick(){
         mBtnChange.setOnClickListener {
-            AddPlanetDialogFragment(planetBean,requireActivity(),object : AddPlanetDialogFragment.OnCloseListener{
-                @SuppressLint("NotifyDataSetChanged")
-                override fun onAddPlanet(planet: PlanetBean) {
-                    //这里不需要
-                }
+            if(isChangeable) {
+                AddPlanetDialogFragment(
+                    planetBean,
+                    requireActivity(),
+                    object : AddPlanetDialogFragment.OnCloseListener {
+                        @SuppressLint("NotifyDataSetChanged")
+                        override fun onAddPlanet(planet: PlanetBean) {
+                            //这里不需要
+                        }
 
-                override fun onChangePlanet(
-                    name: String,
-                    preViewTime: String,
-                    remarks: String,
-                    src: Int
-                ) {
-                    planetBean.run{
-                        setName(name)
-                        setPreviewTime(preViewTime)
-                        setRemarks(remarks)
-                        setImageID(src)
-                    }
-                    upDateView()
-                    listener.onChange(planetBean)
-                    ToastUtil.show("星球信息已更改!")
-                }
+                        override fun onChangePlanet(
+                            name: String,
+                            preViewTime: String,
+                            remarks: String,
+                            src: Int
+                        ) {
+                            planetBean.run {
+                                setName(name)
+                                setPreviewTime(preViewTime)
+                                setRemarks(remarks)
+                                setImageID(src)
+                            }
+                            upDateView()
+                            listener.onChange(planetBean)
+                            ToastUtil.show("星球信息已更改!")
+                        }
 
-            }).show()
+                    }).show()
+            }
+            else{
+                ToastUtil.show("你正在专注于这颗星球,无法对其进行更改!")
+            }
         }
 
         mBtnDelete.setOnClickListener {
-            AlertDialog.Builder(this.requireContext()).apply {
-                setTitle("注意")
-                setMessage("是否要永久删除此星球?")
-                setNegativeButton("否"){
-                        _, _ -> //点击"否"的话肯定什么事也没呀awa
-                }
-                setPositiveButton("是"){
-                        _, _ ->
-                    run {
-                        listener.onDelete(planetBean)
-                        ToastUtil.show("已删除此星球!")
-                        dismiss()
+            if(isChangeable) {
+                AlertDialog.Builder(this.requireContext()).apply {
+                    setTitle("注意")
+                    setMessage("是否要永久删除此星球?")
+                    setNegativeButton("否") { _, _ -> //点击"否"的话肯定什么事也没呀awa
                     }
+                    setPositiveButton("是") { _, _ ->
+                        run {
+                            listener.onDelete(planetBean)
+                            ToastUtil.show("已删除此星球!")
+                            dismiss()
+                        }
+                    }
+                    show()
                 }
-                show()
+            }
+            else{
+                ToastUtil.show("你正在专注于这颗星球,无法对其进行更改!")
             }
         }
     }

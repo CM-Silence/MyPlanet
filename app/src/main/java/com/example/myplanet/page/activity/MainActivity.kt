@@ -41,6 +41,10 @@ class MainActivity : BaseActivity() {
     //private var py = 0f
 
     companion object{
+
+        @Volatile
+        var isCountDown : Boolean = false //是否在计时
+
         /**
          * @Description 启动MainActivity的方法
          * @Param userBean 从LoginActivity传入的UserBean

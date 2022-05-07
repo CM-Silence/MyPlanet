@@ -19,6 +19,7 @@ import com.example.myplanet.bean.PlanetBean
 import com.example.myplanet.bean.UserBean
 import com.example.myplanet.model.LoginModel
 import com.example.myplanet.page.activity.MainActivity
+import com.example.myplanet.page.activity.MainActivity.Companion.isCountDown
 import com.example.myplanet.page.dialog.ChoosePlanetDialogFragment
 import com.example.myplanet.page.dialog.TimerDialog
 import com.example.myplanet.service.TimerService
@@ -95,8 +96,7 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
         }
     }
 
-    @Volatile
-    private var isCountDown = false //是否在倒计时
+
     @Volatile
     private var minute = 0
     @Volatile
