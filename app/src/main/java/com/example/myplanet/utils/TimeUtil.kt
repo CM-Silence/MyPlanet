@@ -1,5 +1,11 @@
 package com.example.myplanet.utils
 
+import android.annotation.SuppressLint
+import java.lang.Exception
+import java.text.SimpleDateFormat
+import java.util.*
+
+
 /**
  * @ClassName TimeUtil
  * @author Silence~
@@ -38,5 +44,91 @@ object TimeUtil {
      */
     fun toEnglishTime(minute : Int, second : Int) : String{
         return "${minute}min ${second}s"
+    }
+
+    /**
+     * 获取年
+     * @return
+     */
+    fun getYear(): Int {
+        val cd: Calendar = Calendar.getInstance()
+        return cd.get(Calendar.YEAR)
+    }
+
+    /**
+     * 获取月
+     * @return
+     */
+    fun getMonth(): Int {
+        val cd: Calendar = Calendar.getInstance()
+        return cd.get(Calendar.MONTH) + 1
+    }
+
+    /**
+     * 获取日
+     * @return
+     */
+    fun getDay(): Int {
+        val cd: Calendar = Calendar.getInstance()
+        return cd.get(Calendar.DATE)
+    }
+
+    /**
+     * 获取时
+     * @return
+     */
+    fun getHour(): Int {
+        val cd: Calendar = Calendar.getInstance()
+        return cd.get(Calendar.HOUR)
+    }
+
+    /**
+     * 获取分
+     * @return
+     */
+    fun getMinute(): Int {
+        val cd: Calendar = Calendar.getInstance()
+        return cd.get(Calendar.MINUTE)
+    }
+
+    /**
+     * 获取当前时间的时间戳(精确)
+     * @return
+     */
+    fun getCurrentTimeMillis(): Long {
+        return System.currentTimeMillis()
+    }
+
+    /**
+     * 获取指定时间的时间戳(到日)
+     * @return
+     */
+    fun getTimeMillisToDay(year : Int,month : Int,day : Int): Long {
+        val cd: Calendar = Calendar.getInstance()
+        cd.set(year,month,day,getHour() - 1,0)
+        return cd.timeInMillis
+    }
+
+    /**
+     * 获取当前时间
+     */
+    fun getCurrentTime(): String {
+        return getFormatedDateTime(System.currentTimeMillis())
+    }
+
+    /**
+     * 将long转换为日期（yyyy-MM-dd HH:mm）
+     * @param dateTime
+     * @return 到分
+     */
+    @SuppressLint("SimpleDateFormat")
+    fun getFormatedDateTime(dateTime: Long): String {
+        var time = ""
+        try {
+            val sDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm")
+            time = sDateFormat.format(Date(dateTime + 0))
+        } catch (e: Exception) {
+        }
+        return time
     }
 }

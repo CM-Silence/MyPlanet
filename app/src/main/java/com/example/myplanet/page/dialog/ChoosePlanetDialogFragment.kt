@@ -131,7 +131,6 @@ open class ChoosePlanetDialogFragment(private var mActivity: FragmentActivity,
                     override fun onAddPlanet(planet: PlanetBean) {
                         planetList.add(planet)
                         adapter.notifyItemChanged(0)
-                        listener.onAddPlanet(planet)
                     }
 
                     override fun onChangePlanet(
@@ -163,7 +162,6 @@ open class ChoosePlanetDialogFragment(private var mActivity: FragmentActivity,
 
     interface OnCloseListener {
         fun onClose(planet : PlanetBean)
-        fun onAddPlanet(planet: PlanetBean)
     }
 
 }

@@ -162,10 +162,6 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
                         userBean.setFirstPlanet(planet)
                         saveData()
                     }
-
-                    override fun onAddPlanet(planet: PlanetBean) {
-                        userBean.addPlanet(planet)
-                    }
                 }).show()
             }
             else{

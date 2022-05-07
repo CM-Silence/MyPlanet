@@ -6,6 +6,7 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.*
 import android.widget.Button
+import android.widget.DatePicker
 import androidx.annotation.Nullable
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -14,8 +15,11 @@ import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myplanet.R
+import com.example.myplanet.base.AppManager
 import com.example.myplanet.bean.PlanetBean
+import com.example.myplanet.page.activity.LoginActivity
 import com.example.myplanet.page.adapter.AddPlanetRvAdapter
+import com.example.myplanet.utils.TimeUtil
 import com.example.myplanet.utils.ToastUtil
 import com.google.android.material.textfield.TextInputEditText
 import java.text.SimpleDateFormat
@@ -159,9 +163,33 @@ open class AddPlanetDialogFragment(private val planet: PlanetBean? = null,
         mRvPlanet.adapter = adapter
     }
 
+    @SuppressLint("InflateParams", "SetTextI18n")
     private fun initClick() {
         mBtnPreview.setOnClickListener {
-            //选择日期
+            val builder = AlertDialog.Builder(this.requireContext())
+            val view = layoutInflater.inflate(R.layout.dialog_choosedate,null)
+            val mDatePicker : DatePicker = view.findViewById(R.id.dialog_datepicker_choosedate)
+            val mYear = TimeUtil.getYear()
+            val mMonth = TimeUtil.getMonth()
+            val mDay = TimeUtil.getDay()
+            mDatePicker.minDate = TimeUtil.getTimeMillisToDay(mYear,mMonth-1, mDay)
+            mDatePicker.maxDate = TimeUtil.getTimeMillisToDay(mYear + 10,mMonth-1,mDay)
+            builder.setView(view)
+                .setTitle("选择预计点亮日期")
+                .setNegativeButton("否"){
+                    _, _ -> //点击"否"的话肯定什么事也没呀awa
+            }
+                .setPositiveButton("是"){
+                    _, _ ->
+                run {
+                    val year = mDatePicker.year
+                    val month = mDatePicker.month + 1
+                    val day = mDatePicker.dayOfMonth
+                    planetPreViewTime = "${year}年${month}月${day}日"
+                    mBtnPreview.text = "   预计点亮日期: ${year}年${month}月${day}日"
+                }
+            }
+            builder.create().show()
         }
         mBtnAdd.setOnClickListener {
             AlertDialog.Builder(this.requireContext()).apply {
@@ -196,6 +224,7 @@ open class AddPlanetDialogFragment(private val planet: PlanetBean? = null,
                     mPlanetBean.getRemarks()
                 )
             }
+            dismiss()
         }
         else{
             ToastUtil.show("星球信息未完善!")
@@ -204,7 +233,7 @@ open class AddPlanetDialogFragment(private val planet: PlanetBean? = null,
 
     private fun isCompete() : Boolean{
         if(!mTieName.text.isNullOrEmpty() && !mTieRemark.text.isNullOrEmpty() && isChooseSrc){
-            mPlanetBean = PlanetBean(mTieName.text.toString(),planetPreViewTime,0,planetSrc!!)
+            mPlanetBean = PlanetBean(mTieName.text.toString(),planetPreViewTime,0,planetSrc!!,mTieRemark.text.toString())
             return true
         }
         return false
