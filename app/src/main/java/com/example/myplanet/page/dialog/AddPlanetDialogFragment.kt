@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Button
 import android.widget.DatePicker
+import android.widget.TextView
 import androidx.annotation.Nullable
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -34,6 +35,7 @@ open class AddPlanetDialogFragment(private val planet: PlanetBean? = null,
                                       private var mActivity: FragmentActivity,
                                       private val listener: OnCloseListener) : DialogFragment() {
 
+    private lateinit var mTvTitle : TextView
     private lateinit var mRvPlanet : RecyclerView
     private lateinit var mTieName : TextInputEditText
     private lateinit var mBtnPreview : Button
@@ -134,6 +136,7 @@ open class AddPlanetDialogFragment(private val planet: PlanetBean? = null,
 
     @SuppressLint("SetTextI18n")
     private fun initView(view: View) {
+        mTvTitle = view.findViewById(R.id.dialog_tv_addplanet_title)
         mRvPlanet = view.findViewById(R.id.dialog_rv_addplanet_planet)
         mTieName = view.findViewById(R.id.dialog_tie_addplanet_name)
         mBtnPreview = view.findViewById(R.id.dialog_btn_addplanet_date)
@@ -141,6 +144,9 @@ open class AddPlanetDialogFragment(private val planet: PlanetBean? = null,
         mBtnAdd = view.findViewById(R.id.dialog_btn_addplanet_add)
 
         if(planet != null){
+            mTvTitle.text = "更改星球信息"
+            mBtnAdd.text = "确认更改"
+
             mTieName.setText(planet.getName())
             mBtnPreview.text = "   预计点亮日期: ${planet.getPreviewTime()}"
             mTieRemark.setText(planet.getRemarks())
