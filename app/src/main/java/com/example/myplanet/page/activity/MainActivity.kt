@@ -34,6 +34,10 @@ class MainActivity : BaseActivity() {
     private lateinit var mVp2Page : ViewPager2
     private lateinit var mTlPage : TabLayout
 
+    private var mTimerFragment : TimerFragment? = null
+    private var mUniverseFragment : UniverseFragment? = null
+    private var mMineFragment : MineFragment? = null
+
     fun getUserBean() = mUserBean
 
     //private var pressTime = 0L //按压计时器的时间,用于检测计时器的长按事件
@@ -73,10 +77,19 @@ class MainActivity : BaseActivity() {
     }
 
     private fun initFragmentList(){
+        if(mTimerFragment == null){
+            mTimerFragment = TimerFragment("计时器")
+        }
+        if(mUniverseFragment == null){
+            mUniverseFragment = UniverseFragment("Universe")
+        }
+        if(mMineFragment == null){
+            mMineFragment = MineFragment("我的")
+        }
         frgList.run{
-            add(TimerFragment("计时器"))
-            add(UniverseFragment("universe"))
-            add(MineFragment("我的"))
+            add(mTimerFragment!!)
+            add(mUniverseFragment!!)
+            add(mMineFragment!!)
         }
     }
 
