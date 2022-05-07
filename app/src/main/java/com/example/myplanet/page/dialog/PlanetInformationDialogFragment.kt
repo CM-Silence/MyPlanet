@@ -26,6 +26,7 @@ import com.example.myplanet.utils.ToastUtil
  */
 open class PlanetInformationDialogFragment(private var mActivity: FragmentActivity,
                                       private val planetBean: PlanetBean,
+                                      private val planetListSize: Int,
                                       private val isChangeable : Boolean,
                                       private val listener: OnCloseListener) : DialogFragment(){
 
@@ -162,7 +163,7 @@ open class PlanetInformationDialogFragment(private var mActivity: FragmentActivi
         }
 
         mBtnDelete.setOnClickListener {
-            if(isChangeable) {
+            if(isChangeable && planetListSize > 1) {
                 AlertDialog.Builder(this.requireContext()).apply {
                     setTitle("注意")
                     setMessage("是否要永久删除此星球?")
@@ -179,7 +180,12 @@ open class PlanetInformationDialogFragment(private var mActivity: FragmentActivi
                 }
             }
             else{
-                ToastUtil.show("你正在专注于这颗星球,无法对其进行更改!")
+                if(planetListSize > 1) {
+                    ToastUtil.show("你正在专注于这颗星球,无法对其进行更改!")
+                }
+                else{
+                    ToastUtil.show("你只有这一颗星球啦,无法再删除了哦!")
+                }
             }
         }
     }

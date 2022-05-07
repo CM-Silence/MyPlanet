@@ -64,7 +64,11 @@ class UniverseWaitFragment(private val userBean: UserBean,private val listener: 
         adapter = UniverseRvAdapter(planetList,object : UniverseRvAdapter.OnClickItemListener{
             @SuppressLint("SetTextI18n")
             override fun onClickItem(planet: PlanetBean) {
-                PlanetInformationDialogFragment(requireActivity(),planet,!(planetList.indexOf(planet) == 0 && MainActivity.isCountDown),object : PlanetInformationDialogFragment.OnCloseListener{
+                PlanetInformationDialogFragment(requireActivity(),
+                    planet,
+                    planetList.size,
+                    !(planetList.indexOf(planet) == 0 && MainActivity.isCountDown),
+                    object : PlanetInformationDialogFragment.OnCloseListener{
                     override fun onChange(planet : PlanetBean) {
                         val position = planetList.indexOf(planet)
                         adapter.notifyItemChanged(position)

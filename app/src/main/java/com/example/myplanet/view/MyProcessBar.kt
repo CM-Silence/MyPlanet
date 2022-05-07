@@ -37,9 +37,6 @@ class MyProcessBar(context: Context, attributeSet: AttributeSet) : RelativeLayou
         box4.setDirectionX(-1)
         box4.setDirectionY(-1)
 
-        this.post {
-            move = this.measuredWidthAndState / 4f //计算控件宽度用于动画
-        }
     }
 
     private fun initAnim(){
