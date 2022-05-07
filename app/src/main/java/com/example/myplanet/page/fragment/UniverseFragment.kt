@@ -99,20 +99,21 @@ class UniverseFragment(title : String = "") : BaseFragment(title) {
      * @date 2022/5/3 9:56
      */
     private fun changeFragment(fragment : BaseFragment){
-        if(mFragmentManager == null) {
-            mFragmentManager = this.childFragmentManager //不要用activity的
+        if(fragment != currentFragment) {
+            if (mFragmentManager == null) {
+                mFragmentManager = this.childFragmentManager //不要用activity的
+            }
+            val transaction = mFragmentManager!!.beginTransaction()
+            if (fragment.isAdded) {
+                transaction.show(fragment)
+            } else {
+                transaction.add(R.id.fragment_framelayout_universe, fragment)
+            }
+            if (currentFragment != null) {
+                transaction.hide(currentFragment!!)
+            }
+            currentFragment = fragment
+            transaction.commit()
         }
-        val transaction = mFragmentManager!!.beginTransaction()
-        if(fragment.isAdded){
-            transaction.show(fragment)
-        }
-        else{
-            transaction.add(R.id.fragment_framelayout_universe, fragment)
-        }
-        if (currentFragment != null){
-            transaction.hide(currentFragment!!)
-        }
-        currentFragment = fragment
-        transaction.commit()
     }
 }

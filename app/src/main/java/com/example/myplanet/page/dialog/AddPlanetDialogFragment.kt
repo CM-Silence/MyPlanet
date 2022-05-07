@@ -21,7 +21,6 @@ import com.example.myplanet.page.adapter.AddPlanetRvAdapter
 import com.example.myplanet.utils.TimeUtil
 import com.example.myplanet.utils.ToastUtil
 import com.google.android.material.textfield.TextInputEditText
-import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -51,11 +50,6 @@ open class AddPlanetDialogFragment(private val planet: PlanetBean? = null,
     private var isChooseSrc = false
     private var isChooseDate = false
 
-    init {
-        //获取当前时间
-        val format = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        planetPreViewTime = format.format(Date())
-    }
 
     override fun getTheme(): Int {
         return R.style.style_dialogfragment
