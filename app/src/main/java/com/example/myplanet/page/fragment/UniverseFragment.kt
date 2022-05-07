@@ -32,6 +32,14 @@ class UniverseFragment(title : String = "") : BaseFragment(title) {
 
     private lateinit var userBean: UserBean
 
+    /**
+     * @Description 刷新数据
+     * @date 2022/5/7 23:19
+     */
+    fun upDateData(){
+        mWaitFragment?.upDateData()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -68,26 +76,26 @@ class UniverseFragment(title : String = "") : BaseFragment(title) {
             mMainFragment = UniverseMainFragment()
         }
         if(mWaitFragment == null){
-            mWaitFragment = UniverseWaitFragment(userBean)
+            mWaitFragment = UniverseWaitFragment(userBean,object : UniverseWaitFragment.OnChangePlanetListListener{
+                override fun onPlanetListChange() {
+                    if(activity != null) {
+                        val activity = activity as MainActivity
+                        activity.upDateData(1)
+                    }
+                }
+            })
         }
-        changeFragment(mMainFragment!!)
+        changeFragment(mMainFragment)
     }
 
     private fun initClick(){
         mBtnWait.setOnClickListener {
-            if(mWaitFragment == null){
-                mWaitFragment = UniverseWaitFragment(userBean)
-            }
-            changeFragment(mWaitFragment!!)
+            changeFragment(mWaitFragment)
             mBtnWait.setBackgroundResource(R.drawable.general_background_press)
             mBtnUniverse.setBackgroundResource(R.drawable.general_background)
         }
-
         mBtnUniverse.setOnClickListener {
-            if(mMainFragment == null){
-                mMainFragment = UniverseMainFragment()
-            }
-            changeFragment(mMainFragment!!)
+            changeFragment(mMainFragment)
             mBtnWait.setBackgroundResource(R.drawable.general_background)
             mBtnUniverse.setBackgroundResource(R.drawable.general_background_press)
         }
@@ -98,13 +106,26 @@ class UniverseFragment(title : String = "") : BaseFragment(title) {
      * @Param fragment 需要切换的碎片
      * @date 2022/5/3 9:56
      */
-    private fun changeFragment(fragment : BaseFragment){
+    private fun changeFragment(fragment : BaseFragment?){
+        if(mMainFragment == null && fragment is UniverseMainFragment){
+            mMainFragment = UniverseMainFragment()
+        }
+        if(mWaitFragment == null && fragment is UniverseWaitFragment){
+            mWaitFragment = UniverseWaitFragment(userBean,object : UniverseWaitFragment.OnChangePlanetListListener{
+                override fun onPlanetListChange() {
+                    if(activity != null) {
+                        val activity = activity as MainActivity
+                        activity.upDateData(1)
+                    }
+                }
+            })
+        }
         if(fragment != currentFragment) {
             if (mFragmentManager == null) {
                 mFragmentManager = this.childFragmentManager //不要用activity的
             }
             val transaction = mFragmentManager!!.beginTransaction()
-            if (fragment.isAdded) {
+            if (fragment!!.isAdded) {
                 transaction.show(fragment)
             } else {
                 transaction.add(R.id.fragment_framelayout_universe, fragment)

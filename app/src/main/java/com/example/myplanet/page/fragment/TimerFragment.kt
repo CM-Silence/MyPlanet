@@ -81,6 +81,15 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
         override fun onServiceDisconnected(p0: ComponentName?) {}
     }
 
+    /**
+     * @Description 刷新数据的方法
+     * @date 2022/5/7 23:15
+     */
+    fun upDateData(){
+        mTvName.text = userBean.getPlanetList()[0].getName()
+        mBtnPlanet.setImageResource(userBean.getPlanetList()[0].getImageID())
+    }
+
     //private val mMyHandler = MyHandler()
     private val mHandler = object : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
@@ -128,8 +137,7 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
         mMyTimer = view.findViewById(R.id.fragment_timer_myTimer)
         mBtnPlanet.bringToFront()
 
-        mTvName.text = userBean.getPlanetList()[0].getName()
-        mBtnPlanet.setImageResource(userBean.getPlanetList()[0].getImageID())
+        upDateData()
     }
 
     private fun initData(){
@@ -164,6 +172,10 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
 
                     override fun onAddPlanet() {
                         userBean.saveData()
+                        if(activity != null) {
+                            val activity = activity as MainActivity
+                            activity.upDateData(2)
+                        }
                     }
                 }).show()
             }

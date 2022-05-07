@@ -15,9 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import com.example.myplanet.R
-import com.example.myplanet.base.AppManager
 import com.example.myplanet.bean.PlanetBean
-import com.example.myplanet.page.activity.LoginActivity
 import com.example.myplanet.utils.ToastUtil
 
 /**

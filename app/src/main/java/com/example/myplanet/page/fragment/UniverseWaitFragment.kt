@@ -22,11 +22,19 @@ import com.example.myplanet.page.dialog.PlanetInformationDialogFragment
  * @date 2022/5/3
  * @Description universe界面中的一个界面(套娃呢awa)
  */
-class UniverseWaitFragment(private val userBean: UserBean) : BaseFragment() {
+class UniverseWaitFragment(private val userBean: UserBean,private val listener: OnChangePlanetListListener) : BaseFragment() {
     private lateinit var mRvPlanet : RecyclerView
 
     private lateinit var adapter : UniverseRvAdapter
     private lateinit var planetList : ArrayList<PlanetBean>
+
+    /**
+     * @Description 刷新数据
+     * @date 2022/5/7 23:18
+     */
+    fun upDateData(){
+        adapter.notifyItemInserted(planetList.size)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,6 +69,7 @@ class UniverseWaitFragment(private val userBean: UserBean) : BaseFragment() {
                         val position = planetList.indexOf(planet)
                         adapter.notifyItemChanged(position)
                         userBean.saveData()
+                        listener.onPlanetListChange()
                     }
 
                     override fun onDelete(planet: PlanetBean) {
@@ -68,6 +77,7 @@ class UniverseWaitFragment(private val userBean: UserBean) : BaseFragment() {
                         planetList.remove(planet)
                         adapter.notifyItemRemoved(position)
                         userBean.saveData()
+                        listener.onPlanetListChange()
                     }
                 }
                 ).show()
@@ -80,6 +90,7 @@ class UniverseWaitFragment(private val userBean: UserBean) : BaseFragment() {
                         planetList.add(planet)
                         adapter.notifyItemInserted(planetList.size)
                         userBean.saveData()
+                        listener.onPlanetListChange()
                     }
                     override fun onChangePlanet(
                         name: String,
@@ -94,5 +105,9 @@ class UniverseWaitFragment(private val userBean: UserBean) : BaseFragment() {
             }
         })
         mRvPlanet.adapter = adapter
+    }
+
+    interface OnChangePlanetListListener{
+        fun onPlanetListChange()
     }
 }

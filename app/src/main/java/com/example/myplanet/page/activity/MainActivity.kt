@@ -61,6 +61,17 @@ class MainActivity : BaseActivity() {
         }
     }
 
+    /**
+     * @Description 刷新数据
+     * @date 2022/5/7 23:20
+     */
+    fun upDateData(index : Int){
+        when(index){
+            1 -> mTimerFragment?.upDateData()
+            2 -> mUniverseFragment?.upDateData()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
