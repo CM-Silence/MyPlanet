@@ -1,5 +1,6 @@
 package com.example.myplanet.bean
 
+import com.example.myplanet.model.LoginModel
 import java.io.Serializable
 
 
@@ -45,7 +46,16 @@ data class UserBean(private val username : String, //账号
         }
     }
 
-
+    /**
+     * @Description 保存用户数据的方法
+     * @date 2022/5/6 11:52
+     */
+    fun saveData(){
+        LoginModel.addNonPasswordUserBean(this)
+        if(isRemember()){
+            LoginModel.setNonPasswordRememberUser(this)
+        }
+    }
 
     companion object {
         private const val USER_BEAN_SPLIT_SYMBOL = "[USER_BEAN_SPLIT_SYMBOL]"

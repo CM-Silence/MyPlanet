@@ -198,19 +198,22 @@ open class AddPlanetDialogFragment(private val planet: PlanetBean? = null,
             builder.create().show()
         }
         mBtnAdd.setOnClickListener {
-            AlertDialog.Builder(this.requireContext()).apply {
-                setTitle("提醒")
-                setMessage("是否要创建/更改星球?")
-                setNegativeButton("否"){
-                        _, _ -> //点击"否"的话肯定什么事也没呀awa
-                }
-                setPositiveButton("是"){
-                        _, _ ->
-                    run {
-                        addPlanet()
+            if(isCompete()) {
+                AlertDialog.Builder(this.requireContext()).apply {
+                    setTitle("提醒")
+                    setMessage("是否要创建/更改星球?")
+                    setNegativeButton("否") { _, _ -> //点击"否"的话肯定什么事也没呀awa
                     }
+                    setPositiveButton("是") { _, _ ->
+                        run {
+                            addPlanet()
+                        }
+                    }
+                    show()
                 }
-                show()
+            }
+            else{
+                ToastUtil.show("星球信息未完善!")
             }
         }
     }
@@ -220,22 +223,18 @@ open class AddPlanetDialogFragment(private val planet: PlanetBean? = null,
      * @date 2022/5/6 20:49
      */
     private fun addPlanet(){
-        if(isCompete()) {
-            if (planet == null) {
-                listener.onAddPlanet(mPlanetBean)
-            } else {
-                listener.onChangePlanet(
-                    mPlanetBean.getName(),
-                    mPlanetBean.getPreviewTime(),
-                    mPlanetBean.getRemarks(),
-                    mPlanetBean.getImageID()
-                )
-            }
-            dismiss()
+        if (planet == null) {
+            listener.onAddPlanet(mPlanetBean)
+            ToastUtil.show("成功添加星球!")
+        } else {
+            listener.onChangePlanet(
+                mPlanetBean.getName(),
+                mPlanetBean.getPreviewTime(),
+                mPlanetBean.getRemarks(),
+                mPlanetBean.getImageID()
+            )
         }
-        else{
-            ToastUtil.show("星球信息未完善!")
-        }
+        dismiss()
     }
 
     private fun isCompete() : Boolean{

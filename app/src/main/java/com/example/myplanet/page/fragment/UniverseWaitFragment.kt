@@ -60,12 +60,14 @@ class UniverseWaitFragment(private val userBean: UserBean) : BaseFragment() {
                     override fun onChange(planet : PlanetBean) {
                         val position = planetList.indexOf(planet)
                         adapter.notifyItemChanged(position)
+                        userBean.saveData()
                     }
 
                     override fun onDelete(planet: PlanetBean) {
                         val position = planetList.indexOf(planet)
                         planetList.remove(planet)
                         adapter.notifyItemRemoved(position)
+                        userBean.saveData()
                     }
                 }
                 ).show()
@@ -77,6 +79,7 @@ class UniverseWaitFragment(private val userBean: UserBean) : BaseFragment() {
                     override fun onAddPlanet(planet: PlanetBean) {
                         planetList.add(planet)
                         adapter.notifyItemInserted(planetList.size)
+                        userBean.saveData()
                     }
                     override fun onChangePlanet(
                         name: String,

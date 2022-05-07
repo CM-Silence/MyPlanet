@@ -17,7 +17,6 @@ import com.example.myplanet.R
 import com.example.myplanet.base.BaseFragment
 import com.example.myplanet.bean.PlanetBean
 import com.example.myplanet.bean.UserBean
-import com.example.myplanet.model.LoginModel
 import com.example.myplanet.page.activity.MainActivity
 import com.example.myplanet.page.activity.MainActivity.Companion.isCountDown
 import com.example.myplanet.page.dialog.ChoosePlanetDialogFragment
@@ -74,7 +73,7 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
                     val msg = Message.obtain()
                     msg.what = 2
                     mHandler.sendMessage(msg)
-                    saveData()
+                    userBean.saveData()
                 }
             })
         }
@@ -155,16 +154,16 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
     private fun initEvent() {
         mBtnPlanet.setOnClickListener {
             if(!isCountDown) {
-                ChoosePlanetDialogFragment(this.requireActivity(),userBean.getPlanetList(),object  : ChoosePlanetDialogFragment.OnCloseListener{
+                ChoosePlanetDialogFragment(this.requireActivity(),userBean,object  : ChoosePlanetDialogFragment.OnCloseListener{
                     override fun onClose(planet : PlanetBean) {
                         mBtnPlanet.setImageResource(planet.getImageID())
                         mTvName.text = planet.getName()
                         userBean.setFirstPlanet(planet)
-                        saveData()
+                        userBean.saveData()
                     }
 
                     override fun onAddPlanet() {
-                        saveData()
+                        userBean.saveData()
                     }
                 }).show()
             }
@@ -208,16 +207,7 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
         isCountDown = true
     }
 
-    /**
-     * @Description 保存用户数据的方法
-     * @date 2022/5/6 11:52
-     */
-    private fun saveData(){
-        LoginModel.addNonPasswordUserBean(userBean)
-        if(userBean.isRemember()){
-            LoginModel.setNonPasswordRememberUser(userBean)
-        }
-    }
+
 
     /**
      * @Description 退出后保存用户数据
@@ -225,7 +215,7 @@ class TimerFragment(title : String = "") : BaseFragment(title) {
      */
     override fun onStop() {
         super.onStop()
-        saveData()
+        userBean.saveData()
     }
 
     override fun onDestroy() {

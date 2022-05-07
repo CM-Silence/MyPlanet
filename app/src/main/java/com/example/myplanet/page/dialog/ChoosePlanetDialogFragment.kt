@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myplanet.R
 import com.example.myplanet.bean.PlanetBean
+import com.example.myplanet.bean.UserBean
 import com.example.myplanet.page.adapter.ChoosePlanetRvAdapter
 import com.example.myplanet.utils.ToastUtil
 
@@ -29,7 +30,7 @@ import com.example.myplanet.utils.ToastUtil
  * @Description 切换星球的下方弹窗
  */
 open class ChoosePlanetDialogFragment(private var mActivity: FragmentActivity,
-                                      private val planetList : ArrayList<PlanetBean>,
+                                      private val userBean: UserBean,
                                       private val listener: OnCloseListener) : DialogFragment(){
 
     private lateinit var mRvPlanet : RecyclerView
@@ -39,6 +40,8 @@ open class ChoosePlanetDialogFragment(private var mActivity: FragmentActivity,
     private lateinit var mBtnChange : Button
 
     private lateinit var adapter : RecyclerView.Adapter<RecyclerView.ViewHolder>
+
+    private lateinit var planetList : ArrayList<PlanetBean>
 
     private var mPlanetBean : PlanetBean? = null
 
@@ -100,9 +103,14 @@ open class ChoosePlanetDialogFragment(private var mActivity: FragmentActivity,
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initData()
         initView(view)
         initRv()
         initClick()
+    }
+
+    private fun initData(){
+        planetList = userBean.getPlanetList()
     }
 
     private fun initView(view: View){
