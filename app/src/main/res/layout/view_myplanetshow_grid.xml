@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="250dp"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    tools:ignore="UseCompoundDrawables">
 
     <ImageView
         android:id="@+id/view_iv_myplanetshow_image"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:background="@drawable/selector_btn"
-        android:src="@drawable/drawable_mars"/>
+        android:src="@drawable/drawable_mars"
+        android:contentDescription="Planet Image"
+        tools:ignore="HardcodedText"/>
 
     <TextView
         android:id="@+id/view_tv_myplanetshow_name"
@@ -20,6 +24,7 @@
         android:background="@drawable/general_background_full"
         android:gravity="center"
         android:text="planet name"
-        android:textColor="@color/black"/>
+        android:textColor="@color/black"
+        tools:ignore="HardcodedText"/>
 
 </LinearLayout>

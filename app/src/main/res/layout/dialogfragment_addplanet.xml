@@ -122,10 +122,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:text="创建"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputLayout8"
-        tools:ignore="HardcodedText"/>
+        app:layout_constraintVertical_bias="0.058"
+        tools:ignore="HardcodedText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

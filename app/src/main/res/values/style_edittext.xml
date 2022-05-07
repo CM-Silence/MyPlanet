@@ -2,6 +2,7 @@
 <resources>
     <style name="style_edittext" >
         <item name="android:textColor">#FFC107</item>
+        <item name="hintTextColor">#606060</item>
         <item name="android:textSize">18sp</item>
         <!-- 底部线 默认颜色 -->
         <item name="colorControlNormal">#606060</item>

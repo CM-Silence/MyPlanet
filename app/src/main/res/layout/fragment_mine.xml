@@ -40,7 +40,8 @@
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/fragment_shapeableimageview_mine_head"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText"/>
 
         <TextView
             android:id="@+id/fragment_tv_mine_signature"
@@ -53,7 +54,8 @@
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/fragment_shapeableimageview_mine_head"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_tv_mine_name" />
+            app:layout_constraintTop_toBottomOf="@+id/fragment_tv_mine_name"
+            tools:ignore="HardcodedText"/>
 
         <Button
             android:id="@+id/fragment_btn_mine_experience"
@@ -67,7 +69,8 @@
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="HardcodedText"/>
 
         <Button
             android:id="@+id/fragment_btn_mine_achievement"
@@ -83,7 +86,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/fragment_btn_mine_logout"
             app:layout_constraintHorizontal_bias="0.1"
-            app:layout_constraintStart_toEndOf="@+id/fragment_btn_mine_experience" />
+            app:layout_constraintStart_toEndOf="@+id/fragment_btn_mine_experience"
+            tools:ignore="HardcodedText"/>
 
         <Button
             android:id="@+id/fragment_btn_mine_logout"
@@ -97,7 +101,8 @@
             android:textColor="@color/black"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="HardcodedText"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -115,7 +120,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+        tools:ignore="HardcodedText"/>
 
     <Button
         android:id="@+id/fragment_btn_mine_setting"
@@ -130,6 +136,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_btn_mine_suggest" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_btn_mine_suggest"
+        tools:ignore="HardcodedText"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

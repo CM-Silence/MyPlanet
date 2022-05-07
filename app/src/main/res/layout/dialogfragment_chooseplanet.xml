@@ -16,7 +16,8 @@
         android:text="待点亮"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/dialog_rv_changeplanet_planet"
@@ -50,7 +51,8 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText"/>
 
         <TextView
             android:id="@+id/dialog_tv_changeplanet_previewtime"
@@ -62,7 +64,8 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dialog_tv_changeplanet_name" />
+            app:layout_constraintTop_toBottomOf="@+id/dialog_tv_changeplanet_name"
+            tools:ignore="HardcodedText"/>
 
         <TextView
             android:id="@+id/dialog_tv_changeplanet_time"
@@ -74,7 +77,8 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dialog_tv_changeplanet_previewtime" />
+            app:layout_constraintTop_toBottomOf="@+id/dialog_tv_changeplanet_previewtime"
+            tools:ignore="HardcodedText"/>
 
         <Button
             android:id="@+id/dialog_btn_changeplanet_change"
@@ -85,7 +89,8 @@
             android:layout_marginEnd="16dp"
             android:text="切换"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dialog_tv_changeplanet_previewtime" />
+            app:layout_constraintTop_toBottomOf="@+id/dialog_tv_changeplanet_previewtime"
+            tools:ignore="HardcodedText"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
