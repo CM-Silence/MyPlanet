@@ -131,6 +131,7 @@ open class ChoosePlanetDialogFragment(private var mActivity: FragmentActivity,
                     override fun onAddPlanet(planet: PlanetBean) {
                         planetList.add(planet)
                         adapter.notifyItemChanged(0)
+                        listener.onAddPlanet()
                     }
 
                     override fun onChangePlanet(
@@ -162,6 +163,7 @@ open class ChoosePlanetDialogFragment(private var mActivity: FragmentActivity,
 
     interface OnCloseListener {
         fun onClose(planet : PlanetBean)
+        fun onAddPlanet() //这里回调给TimerFragment让它保存一下userBean的数据即可
     }
 
 }

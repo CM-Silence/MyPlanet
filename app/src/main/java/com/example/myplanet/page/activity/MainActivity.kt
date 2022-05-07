@@ -16,6 +16,7 @@ import com.example.myplanet.page.dialog.CompleteInformationDialog
 import com.example.myplanet.page.fragment.MineFragment
 import com.example.myplanet.page.fragment.TimerFragment
 import com.example.myplanet.page.fragment.UniverseFragment
+import com.example.myplanet.utils.TimeUtil
 import com.example.myplanet.utils.ToastUtil
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -92,13 +93,8 @@ class MainActivity : BaseActivity() {
     private fun isNew(){
         if(mUserBean.isNew()){
             mUserBean.setNew(false)
-            mUserBean.addPlanet(PlanetBean("earth","",0,R.drawable.drawable_earth))
-            mUserBean.addPlanet(PlanetBean("mars","",0,R.drawable.drawable_mars))
-            mUserBean.addPlanet(PlanetBean("neptune","",0,R.drawable.drawable_neptune))
-            mUserBean.addPlanet(PlanetBean("saturn","",0,R.drawable.drawable_saturn))
-            mUserBean.addPlanet(PlanetBean("uranus","",0,R.drawable.drawable_uranus))
-            mUserBean.addPlanet(PlanetBean("venus","",0,R.drawable.drawable_venus))
-            ToastUtil.show("欢迎新用户!您获得了6颗星球作为赠礼!")
+            mUserBean.addPlanet(PlanetBean("My earth",TimeUtil.toChineseDate(TimeUtil.getYear(),TimeUtil.getMonth(),TimeUtil.getDay()),0,R.drawable.drawable_earth,"宇宙为你闪耀"))
+            ToastUtil.show("欢迎新用户!您获得了1颗星球作为赠礼!")
             CompleteInformationDialog(this,mUserBean.getName(),mUserBean.getSignature(),
                 object : CompleteInformationDialog.OnCloseListener{
                     override fun onClose(name: String, signature: String) {

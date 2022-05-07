@@ -47,6 +47,17 @@ object TimeUtil {
     }
 
     /**
+     * @return 时间,格式为yyyy年mm月dd日
+     * @param year 年
+     * @Param month 月
+     * @param day 日
+     * @date 2022/5/2 23:19
+     */
+    fun toChineseDate(year : Int, month : Int, day: Int) : String{
+        return "${year}年${month}月${day}日"
+    }
+
+    /**
      * 获取年
      * @return
      */

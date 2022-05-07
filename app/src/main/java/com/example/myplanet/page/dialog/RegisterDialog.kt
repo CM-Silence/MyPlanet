@@ -83,17 +83,16 @@ class RegisterDialog(@NonNull context: Context, username: String, password: Stri
             if (mEtPassword1.text.toString().length < 6 ||
                 mEtPassword1.text.toString().length > 16) {
                 mEtPassword1.error = "密码长度为6-16!"
-            }
-            else if (!it.toString().matches(".*[a-zA-Z]+.*".toRegex())) {
-                mEtPassword1.error = "密码必须包含字母!"
-            }
-            else {
+            } else {
                 mEtPassword1.error = null
             }
         }
         mEtPassword2.addTextChangedListener {
             if (mEtPassword2.text.toString() != mEtPassword1.text.toString()) {
                 mEtPassword2.error = "两次输入的密码不一致!"
+            } else if (mEtPassword1.text.toString().length < 6 ||
+                mEtPassword2.text.toString().length > 16) {
+                mEtPassword2.error = "密码长度为6-16!"
             } else {
                 mEtPassword2.error = null
             }
