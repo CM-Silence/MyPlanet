@@ -94,6 +94,7 @@ open class ChoosePlanetDialogFragment(private var mActivity: FragmentActivity,
         val dialog: Dialog = super.onCreateDialog(savedInstanceState)
         val window: Window? = dialog.window
         window?.setGravity(Gravity.BOTTOM) //设置从底部弹出
+        window?.attributes?.windowAnimations = R.style.dialog_anim_style //设置动画
         return dialog
     }
 

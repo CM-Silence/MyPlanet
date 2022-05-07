@@ -47,6 +47,8 @@ data class PlanetBean(private var name : String,
     }
 
     companion object {
+        private const val PLANET_BEAN_SPLIT_SYMBOL = "[PLANET_BEAN_SPLIT_SYMBOL]"
+        const val PLANET_LIST_SPLIT_SYMBOL = "[PLANET_LIST_SPLIT_SYMBOL]"
 
         /**
          * @Description 将一段字符串转换为PlanetBean类对象的方法
@@ -58,7 +60,7 @@ data class PlanetBean(private var name : String,
             if (content == null) {
                 return null
             }
-            val split = content.split("-")
+            val split = content.split(PLANET_BEAN_SPLIT_SYMBOL)
             return PlanetBean(
                 split[0],
                 split[1],
@@ -79,7 +81,7 @@ data class PlanetBean(private var name : String,
                 return null
             }
             val planetList = ArrayList<PlanetBean>()
-            val split = content.split("@")
+            val split = content.split(PLANET_LIST_SPLIT_SYMBOL)
             for (data in split){
                 if (data == ""){
                     continue
@@ -94,6 +96,10 @@ data class PlanetBean(private var name : String,
      * @Description 返回一个记录此对象信息的字符串
      * @date 2022/5/2 20:55
      */
-    fun getPlanetBeanString() = "${name}-${previewTime}-${time}-${imageID}-${remarks}"
+    fun getPlanetBeanString() = "${name}$PLANET_BEAN_SPLIT_SYMBOL" +
+            "${previewTime}$PLANET_BEAN_SPLIT_SYMBOL" +
+            "${time}$PLANET_BEAN_SPLIT_SYMBOL" +
+            "${imageID}$PLANET_BEAN_SPLIT_SYMBOL" +
+            "${remarks}$PLANET_BEAN_SPLIT_SYMBOL"
 
 }

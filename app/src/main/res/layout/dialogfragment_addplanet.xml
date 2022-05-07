@@ -44,6 +44,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout7"
         android:layout_width="380dp"
@@ -54,9 +55,9 @@
         android:theme="@style/style_edittext_noline"
         app:hintTextColor="#FFC107"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_rv_addplanet_planet"
+        app:layout_constraintTop_toBottomOf="@+id/dialog_btn_addplanet_date"
         tools:ignore="HardcodedText">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -69,7 +70,6 @@
             android:textColor="@color/black"
             android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
-
 
     <Button
         android:id="@+id/dialog_btn_addplanet_date"
@@ -85,8 +85,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout7"
-        tools:ignore="HardcodedText"/>
+        app:layout_constraintTop_toBottomOf="@+id/dialog_rv_addplanet_planet"
+        tools:ignore="HardcodedText" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout8"
@@ -100,7 +100,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dialog_btn_addplanet_date"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout7"
         tools:ignore="HardcodedText">
 
         <com.google.android.material.textfield.TextInputEditText

@@ -93,7 +93,7 @@ class MainActivity : BaseActivity() {
     private fun isNew(){
         if(mUserBean.isNew()){
             mUserBean.setNew(false)
-            mUserBean.addPlanet(PlanetBean("My earth",TimeUtil.toChineseDate(TimeUtil.getYear(),TimeUtil.getMonth(),TimeUtil.getDay()),0,R.drawable.drawable_earth,"宇宙为你闪耀"))
+            mUserBean.addPlanet(PlanetBean("My earth",TimeUtil.toDate(TimeUtil.getYear(),TimeUtil.getMonth(),TimeUtil.getDay()),0,R.drawable.drawable_earth,"宇宙为你闪耀"))
             ToastUtil.show("欢迎新用户!您获得了1颗星球作为赠礼!")
             CompleteInformationDialog(this,mUserBean.getName(),mUserBean.getSignature(),
                 object : CompleteInformationDialog.OnCloseListener{

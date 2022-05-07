@@ -1,6 +1,5 @@
 package com.example.myplanet.bean
 
-import com.example.myplanet.utils.AESCryptUtil
 import java.io.Serializable
 
 
@@ -49,6 +48,7 @@ data class UserBean(private val username : String, //账号
 
 
     companion object {
+        private const val USER_BEAN_SPLIT_SYMBOL = "[USER_BEAN_SPLIT_SYMBOL]"
 
         /**
          * @Description 将一段字符串转换为UserBean类对象的方法
@@ -60,7 +60,7 @@ data class UserBean(private val username : String, //账号
             if (content == null) {
                 return null
             }
-            val split = content.split(",")
+            val split = content.split(USER_BEAN_SPLIT_SYMBOL)
             return PlanetBean.getPlanetListFromString(split[8])?.let {
                 UserBean(
                     split[0],
@@ -87,7 +87,7 @@ data class UserBean(private val username : String, //账号
             if (content == null) {
                 return null
             }
-            val split = content.split(",")
+            val split = content.split(USER_BEAN_SPLIT_SYMBOL)
             return split[1]
         }
     }
@@ -99,9 +99,16 @@ data class UserBean(private val username : String, //账号
      * @date 2022/4/30 17:30
      */
     fun getUserBeanString() : String{
-        var data = "${username},${password},${isRemember},${isAutoLogin},${isNew},${name},${signature},${headPortraitAddress},"
+        var data = "${username}$USER_BEAN_SPLIT_SYMBOL" +
+                "${password}$USER_BEAN_SPLIT_SYMBOL" +
+                "${isRemember}$USER_BEAN_SPLIT_SYMBOL" +
+                "${isAutoLogin}$USER_BEAN_SPLIT_SYMBOL" +
+                "${isNew}$USER_BEAN_SPLIT_SYMBOL" +
+                "${name}$USER_BEAN_SPLIT_SYMBOL" +
+                "${signature}$USER_BEAN_SPLIT_SYMBOL" +
+                "${headPortraitAddress}$USER_BEAN_SPLIT_SYMBOL"
         for (planet in planetList){
-            data += (planet.getPlanetBeanString() + "@")
+            data += (planet.getPlanetBeanString() + PlanetBean.PLANET_LIST_SPLIT_SYMBOL)
         }
         return data
     }

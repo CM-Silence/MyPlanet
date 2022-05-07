@@ -14,6 +14,7 @@ import com.example.myplanet.base.BaseFragment
 import com.example.myplanet.bean.PlanetBean
 import com.example.myplanet.page.adapter.ChoosePlanetRvAdapter
 import com.example.myplanet.page.adapter.UniverseRvAdapter
+import com.example.myplanet.page.dialog.AddPlanetDialogFragment
 import com.example.myplanet.page.dialog.ChoosePlanetDialogFragment
 import com.example.myplanet.page.dialog.PlanetInformationDialogFragment
 
@@ -25,6 +26,8 @@ import com.example.myplanet.page.dialog.PlanetInformationDialogFragment
  */
 class UniverseWaitFragment(private val planetList : ArrayList<PlanetBean>) : BaseFragment() {
     private lateinit var mRvPlanet : RecyclerView
+
+    private lateinit var adapter : UniverseRvAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,10 +50,28 @@ class UniverseWaitFragment(private val planetList : ArrayList<PlanetBean>) : Bas
     private fun initRv(){
         val layoutManager = GridLayoutManager(requireContext(),2)
         mRvPlanet.layoutManager = layoutManager
-        val adapter = UniverseRvAdapter(planetList,object : UniverseRvAdapter.OnClickItemListener{
+        adapter = UniverseRvAdapter(planetList,object : UniverseRvAdapter.OnClickItemListener{
             @SuppressLint("SetTextI18n")
             override fun onClickItem(planet: PlanetBean) {
                 PlanetInformationDialogFragment(requireActivity(),planet).show()
+            }
+
+            override fun onAddButtonClick() {
+                AddPlanetDialogFragment(planet = null,requireActivity(),object : AddPlanetDialogFragment.OnCloseListener{
+                    @SuppressLint("NotifyDataSetChanged")
+                    override fun onAddPlanet(planet: PlanetBean) {
+                        planetList.add(planet)
+                        adapter.notifyItemChanged(0)
+                    }
+                    override fun onChangePlanet(
+                        name: String,
+                        preViewTime: String,
+                        remarks: String
+                    ) {
+                        //这里不需要
+                    }
+
+                }).show()
             }
         })
         mRvPlanet.adapter = adapter

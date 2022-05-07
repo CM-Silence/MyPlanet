@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
 import com.example.myplanet.R
+import com.example.myplanet.utils.ToastUtil
 
 /**
  * @ClassName MyProcessBar
@@ -17,15 +18,12 @@ class MyProcessBar(context: Context, attributeSet: AttributeSet) : RelativeLayou
     private lateinit var box2: MyBox
     private lateinit var box3: MyBox
     private lateinit var box4: MyBox
+    private var move : Float = 60f
 
     init {
         LayoutInflater.from(context).inflate(R.layout.view_myprocessbar, this)
         initView()
         initAnim()
-    }
-
-    companion object{
-        private const val MOVE = 60f
     }
 
     private fun initView(){
@@ -38,6 +36,10 @@ class MyProcessBar(context: Context, attributeSet: AttributeSet) : RelativeLayou
         box3.setDirectionY(-1)
         box4.setDirectionX(-1)
         box4.setDirectionY(-1)
+
+        this.post {
+            move = this.measuredWidthAndState / 4f //计算控件宽度用于动画
+        }
     }
 
     private fun initAnim(){
@@ -48,13 +50,13 @@ class MyProcessBar(context: Context, attributeSet: AttributeSet) : RelativeLayou
     }
 
     private fun move(box: MyBox){
-        box.animate().translationXBy(box.getDirectionX() * MOVE).translationYBy(box.getDirectionY() * MOVE).scaleX(1.5f).scaleY(1.5f).rotationBy(45f).setDuration(800).withEndAction {
+        box.animate().translationXBy(box.getDirectionX() * move).translationYBy(box.getDirectionY() * move).scaleX(1.5f).scaleY(1.5f).rotationBy(45f).setDuration(800).withEndAction {
             back(box)
         }
     }
 
     private fun back(box: MyBox){
-        box.animate().translationXBy(-1 * box.getDirectionX() * MOVE).translationYBy(-1 * box.getDirectionY() * MOVE).scaleX(1f).scaleY(1f).rotationBy(45f).setDuration(1200).withEndAction {
+        box.animate().translationXBy(-1 * box.getDirectionX() * move).translationYBy(-1 * box.getDirectionY() * move).scaleX(1f).scaleY(1f).rotationBy(45f).setDuration(1200).withEndAction {
             move(box)
         }
     }

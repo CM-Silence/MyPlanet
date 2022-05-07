@@ -185,7 +185,7 @@ open class AddPlanetDialogFragment(private val planet: PlanetBean? = null,
                     val year = mDatePicker.year
                     val month = mDatePicker.month + 1
                     val day = mDatePicker.dayOfMonth
-                    planetPreViewTime = "${year}年${month}月${day}日"
+                    planetPreViewTime = "${year}-${month}-${day}"
                     mBtnPreview.text = "   预计点亮日期: ${year}年${month}月${day}日"
                 }
             }

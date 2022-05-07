@@ -50,8 +50,7 @@ class UniverseRvAdapter(private val planetList : List<PlanetBean>, private val l
 
         init {
             mBtnAdd.setOnClickListener {
-                Toast.makeText(MyApplication.getAppContext(), "对不起,我实在是肝不动了qaq", Toast.LENGTH_SHORT).show()
-
+                listener.onAddButtonClick()
             }
         }
     }
@@ -95,6 +94,7 @@ class UniverseRvAdapter(private val planetList : List<PlanetBean>, private val l
 
     interface OnClickItemListener {
         fun onClickItem(planet : PlanetBean)
+        fun onAddButtonClick()
     }
 
 }

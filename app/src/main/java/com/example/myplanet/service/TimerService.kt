@@ -128,6 +128,7 @@ class TimerService : Service() {
         minute = m
         second = s
         if (!isCountDown) {
+            sentImportantNotification("开始倒计时提醒","已经开始专注于这颗星球了哦!")
             timeChangeThread = Thread {
                 while (second != 0 || minute != 0) {
                     Thread.sleep(1000L) //等待一秒
@@ -154,7 +155,6 @@ class TimerService : Service() {
             }
         }
         isCountDown = true
-        sentImportantNotification("开始倒计时提醒","已经开始专注于这颗星球了哦!")
     }
 
     fun setOnTimeChangeListener(onTimeChangeListener: OnTimeChangeListener) {

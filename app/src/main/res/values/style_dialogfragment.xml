@@ -11,5 +11,9 @@
         <item name="android:windowMinWidthMinor">100%</item><!-- 这为最高100% -->
         <!-- 设置有遮罩层 -->
         <item name="android:backgroundDimEnabled">true</item>
+        <!--进入时的动画-->
+        <item name="android:windowEnterAnimation">@anim/anim_translate_in</item>
+        <!--退出时的动画-->
+        <item name="android:windowExitAnimation">@anim/anim_translate_out</item>
     </style>
 </resources>

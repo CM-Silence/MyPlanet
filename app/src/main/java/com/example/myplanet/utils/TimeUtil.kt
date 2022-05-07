@@ -53,8 +53,8 @@ object TimeUtil {
      * @param day 日
      * @date 2022/5/2 23:19
      */
-    fun toChineseDate(year : Int, month : Int, day: Int) : String{
-        return "${year}年${month}月${day}日"
+    fun toDate(year : Int, month : Int, day: Int) : String{
+        return "${year}-${month}-${day}"
     }
 
     /**

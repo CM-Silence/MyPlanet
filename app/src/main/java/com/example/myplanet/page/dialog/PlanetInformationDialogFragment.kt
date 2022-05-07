@@ -3,6 +3,7 @@ package com.example.myplanet.page.dialog
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.view.*
 import android.widget.ImageView
 import android.widget.TextView
@@ -81,6 +82,7 @@ open class PlanetInformationDialogFragment(private var mActivity: FragmentActivi
         val dialog: Dialog = super.onCreateDialog(savedInstanceState)
         val window: Window? = dialog.window
         window?.setGravity(Gravity.BOTTOM) //设置从底部弹出
+        window?.attributes?.windowAnimations = R.style.dialog_anim_style //设置动画
         return dialog
     }
 
@@ -102,6 +104,7 @@ open class PlanetInformationDialogFragment(private var mActivity: FragmentActivi
         mTvPreviewTime.text = "点亮日期:${planetBean.getPreviewTime()}"
         mTvTime.text = "时长:${planetBean.getTimeString()}"
         mTvRemarks.text = "备注:${planetBean.getRemarks()}"
+        mTvRemarks.movementMethod = ScrollingMovementMethod.getInstance()
     }
 
 }
